@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Phần mềm tạo mã quét QR chuyên nghiệp 2.9.0 · miễn phí, chạy hoàn toàn trên máy.
+  Phần mềm tạo mã quét QR chuyên nghiệp 2.9.1 · miễn phí, chạy hoàn toàn trên máy.
   Phần mềm được viết bởi Võ Hữu Ngợi - 0917010170.
   Thư viện đi kèm: QR Code Generator for JavaScript (Kazuhiko Arase, MIT), jsQR (Cosmo Wolfe, Apache-2.0),
   phông chữ Be Vietnam Pro (SIL Open Font License 1.1). Chi tiết trong THIRD-PARTY-NOTICES.md.
@@ -122,19 +122,10 @@ main{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:30px 24p
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
 .chips li{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--on-ground);border:1px solid var(--on-ground-line);background:var(--on-ground-fill);border-radius:999px;padding:5px 12px 5px 9px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .chips svg{width:15px;height:15px;flex:0 0 15px;color:var(--gold)}
-.install{display:flex;align-items:center;gap:14px;margin:18px 0 0;flex-wrap:wrap}
-.install[hidden]{display:none}
-.install p{margin:0;flex:1 1 260px;font-size:13.5px;line-height:1.55;color:var(--on-ground-mute);max-width:52ch}
-.cta{display:inline-flex;align-items:center;gap:9px;border:0;cursor:pointer;font:inherit;font-size:15px;font-weight:800;letter-spacing:-.01em;min-height:50px;padding:10px 22px;border-radius:var(--r-ctl);
-  color:var(--gold-ink);background:linear-gradient(180deg,#ffe07a 0%,#ffc935 55%,#f0b21a 100%);box-shadow:0 8px 22px rgba(90,0,10,.35),inset 0 1px 0 rgba(255,255,255,.55);text-shadow:none;transition:transform .12s ease,filter .12s ease}
-.cta:hover{filter:brightness(1.06)}.cta:active{transform:scale(.97)}
-.cta svg{width:19px;height:19px;flex:0 0 19px}
-.lk{border:0;background:none;padding:0;font:inherit;font-weight:600;color:var(--gold);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .steps h4{font-size:14.5px;margin:0 0 8px}
 .steps ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.6}
 .steps b{font-weight:700;color:var(--accent-t)}
-.exe{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px dashed var(--line2);padding-top:14px;font-size:13.5px;color:var(--mute)}
-.exe[hidden]{display:none}.exe span{flex:1 1 220px}
+.steps .hint{margin:10px 0 0}
 
 .card{background:var(--paper);border:1px solid transparent;border-radius:var(--r-panel);box-shadow:var(--shadow)}
 html[data-theme="dark"] .card{border-color:var(--line)}
@@ -428,16 +419,6 @@ dialog[open]{animation:dlg .2s ease-out}
   .stage{max-height:calc(100vh - 110px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(230,180,81,.45) transparent}
   .stage>*{flex:0 0 auto}
 }
-/* màn hình cao: đủ chỗ để "mã gần đây" nằm ngay dưới khay và ghim cùng khay */
-@media (min-width:941px) and (min-height:960px){
-  .left{display:flex;flex-direction:column;gap:20px;min-width:0;grid-column:1;grid-row:1}
-  .side{display:flex;flex-direction:column;gap:18px;min-width:0;grid-column:2;grid-row:1/span 2;position:sticky;top:80px;max-height:calc(100vh - 110px)}
-  .hero,.sec-content,.sec-design,.recent{grid-column:auto;grid-row:auto}
-  .foot{grid-row:2}
-  .stage{position:static;flex:0 0 auto}
-  .recent{flex:0 1 auto;min-height:64px;display:flex;flex-direction:column;overflow:hidden}
-  .rec{flex:1 1 auto;min-height:0}
-}
 @media (min-width:941px) and (max-height:800px){
   .stage{--chrome:552px}
   .stage:has(#warn:not([hidden])){--chrome:627px}
@@ -484,8 +465,12 @@ dialog[open]{animation:dlg .2s ease-out}
   .foot{order:7;margin-top:8px}
 }
 @media (max-width:940px) and (max-height:520px){.proof{position:static}html{scroll-padding-top:0}}
-@media (max-width:760px){#btnInstall{display:none}.hb .lb{display:none}.hb{width:40px;padding:0;justify-content:center}.brand .tag{display:none}}
+@media (max-width:760px){.hb .lb{display:none}.hb{width:40px;padding:0;justify-content:center}.brand .tag{display:none}}
 @media (max-width:560px){
+  .bar{flex-wrap:wrap;row-gap:10px}
+  .brand{flex:1 1 100%}
+  .htools{margin-left:0;width:100%}
+  .htools .hb{flex:1 1 0;width:auto}
   .pad{padding:16px}
   .row{grid-template-columns:1fr}
   .ck.inrow{align-self:auto}
@@ -525,7 +510,7 @@ dialog[open]{animation:dlg .2s ease-out}
       <button class="hb" id="btnBatch" type="button" title="Tạo nhiều mã QR cùng lúc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><path d="M17 14v6M14 17h6"/></svg><span class="lb">Tạo hàng loạt</span></button>
       <button class="hb" id="btnScan" type="button" title="Quét mã QR bằng camera hoặc đọc từ ảnh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M4 12h16"/></svg><span class="lb">Quét mã QR</span></button>
       <button class="hb" id="btnFull" type="button" aria-pressed="false" title="Mở phần mềm toàn màn hình để dễ thao tác"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span class="lb" id="lbFull">Toàn màn hình</span></button>
-      <button class="hb gold" id="btnInstall" type="button" hidden title="Cài phần mềm lên màn hình chính hoặc màn hình nền của máy này"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg><span class="lb">Tải về máy</span></button>
+      <button class="hb gold" id="btnInstall" type="button" hidden title="Tạo lối tắt của phần mềm trên màn hình chính hoặc màn hình nền của máy này"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg><span class="lb">Tạo lối tắt</span></button>
       <button class="hb sq" id="btnTheme" type="button" title="Đổi giao diện sáng/tối" aria-label="Đổi giao diện sáng/tối"></button>
     </div>
   </div>
@@ -544,10 +529,6 @@ dialog[open]{animation:dlg .2s ease-out}
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.3-2.9 7.6-7 9.5-4.1-1.9-7-5.2-7-9.5V6z"/><path d="M9 12l2.2 2.2L15 10.5"/></svg>Dữ liệu ở lại trên máy</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M3 3l18 18"/></svg>Dùng được khi mất mạng</li>
         </ul>
-        <div class="install" id="installBar" hidden>
-          <button class="cta" id="btnInstall2" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Tải về màn hình chính</button>
-          <p>Thêm biểu tượng phần mềm lên màn hình chính hoặc màn hình nền để mở nhanh như một ứng dụng, dùng được cả khi mất mạng. <button class="lk" id="btnInstallHow" type="button">Xem hướng dẫn</button></p>
-        </div>
       </div>
 
       <div class="card pad sec-content">
@@ -812,25 +793,26 @@ dialog[open]{animation:dlg .2s ease-out}
 <!-- Quét mã QR: camera hoặc ảnh -->
 <dialog id="dlgInstall" aria-labelledby="dlgInstallH">
   <div class="dg">
-    <div class="dg-h"><div class="dg-t"><h3 id="dlgInstallH">Tải phần mềm về màn hình chính</h3><p>Sau khi cài, phần mềm có biểu tượng riêng trên màn hình chính hoặc màn hình nền, mở trong cửa sổ riêng và dùng được cả khi mất mạng. Không tốn phí, gỡ lúc nào cũng được.</p></div>
+    <div class="dg-h"><div class="dg-t"><h3 id="dlgInstallH">Tạo lối tắt trên màn hình chính</h3><p>Lối tắt là biểu tượng của phần mềm trên màn hình chính hoặc màn hình nền, bấm vào là mở ngay. Không tải file cài đặt nào về máy, xoá lối tắt lúc nào cũng được.</p></div>
       <button class="x" type="button" data-close aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-    <button class="btn primary" id="insGo" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Cài ngay lên máy này</button>
-    <p class="hint" id="insNote">Trình duyệt này không cho phần mềm tự mở bảng cài đặt. Bạn làm theo các bước dưới đây, chỉ mất khoảng 10 giây.</p>
+    <button class="btn primary" id="insGo" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Tạo lối tắt trên máy này</button>
+    <p class="hint" id="insNote">Trình duyệt này không cho phần mềm tự tạo lối tắt. Bạn làm theo các bước dưới đây, chỉ mất khoảng 10 giây.</p>
     <div id="insSteps">
       <div class="steps" data-dev="pc">
-        <h4>Trên máy tính (Chrome, Edge, Cốc Cốc)</h4>
+        <h4>Trên máy tính</h4>
         <ol>
-          <li>Nhìn cuối thanh địa chỉ, bấm biểu tượng cài đặt (hình màn hình có mũi tên xuống), rồi bấm <b>Cài đặt</b>.</li>
-          <li>Nếu không thấy biểu tượng đó: mở menu ba chấm ở góc trên bên phải, chọn mục <b>Cài đặt trang dưới dạng ứng dụng</b> hoặc <b>Tạo lối tắt</b>. Trong Chrome, mục này nằm ở "Truyền, lưu và chia sẻ"; trong Edge nằm ở "Ứng dụng".</li>
-          <li>Biểu tượng phần mềm hiện trên màn hình nền và trong menu Start. Bấm đúp là mở.</li>
+          <li>Mở menu ba chấm ở góc trên bên phải của trình duyệt.</li>
+          <li>Chọn <b>Truyền, lưu và chia sẻ</b>, rồi chọn <b>Tạo lối tắt</b>.</li>
+          <li>Bấm <b>Tạo</b>. Lối tắt hiện trên màn hình nền, bấm đúp là mở.</li>
         </ol>
+        <p class="hint">Các bước trên dành cho Chrome và Cốc Cốc. Với Edge: mở menu ba chấm, chọn "Ứng dụng", rồi chọn mục cài trang này để có lối tắt.</p>
       </div>
       <div class="steps" data-dev="and" hidden>
         <h4>Trên điện thoại, máy tính bảng Android</h4>
         <ol>
           <li>Mở menu ba chấm của trình duyệt.</li>
-          <li>Chọn <b>Thêm vào màn hình chính</b> (hoặc <b>Cài đặt ứng dụng</b>), rồi bấm <b>Cài đặt</b>.</li>
-          <li>Biểu tượng phần mềm hiện trên màn hình chính.</li>
+          <li>Chọn <b>Thêm vào màn hình chính</b>, rồi chọn <b>Tạo lối tắt</b> (hoặc <b>Thêm</b>).</li>
+          <li>Lối tắt hiện trên màn hình chính.</li>
         </ol>
       </div>
       <div class="steps" data-dev="ios" hidden>
@@ -842,8 +824,6 @@ dialog[open]{animation:dlg .2s ease-out}
         </ol>
       </div>
     </div>
-    <p class="hint">Nếu trình duyệt không có các mục trên, hãy mở trang bằng Chrome hoặc Edge rồi làm lại.</p>
-    <div class="exe" id="insExeBox" hidden><span>Muốn dùng bản chạy riêng trên Windows, không cần trình duyệt?</span><a class="btn" id="insExe" target="_blank" rel="noopener noreferrer">Tải bản Windows (.exe)</a></div>
   </div>
 </dialog>
 
@@ -886,7 +866,7 @@ return qrcode;
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
-  var VERSION = '2.9.0';
+  var VERSION = '2.9.1';
   var KEY = 'qr-studio-v1';
   var DEF = { fg: '#15171c', bg: '#ffffff', tr: false, dot: 'sq', eye: 'sq', ec: 'M', mg: 4, size: '1024',
     gm: '', g2: '#c1121f', ga: 135, em: false, eo: '#15171c', ei: '#c1121f', fr: 'none', fc: '#c1121f' };
@@ -1798,13 +1778,13 @@ return qrcode;
     window.__bgNet = { count: function () { return pts.length; }, running: function () { return !!raf; } };
   })();
 
-  /* ---------- cài lên màn hình chính / màn hình nền (khi chạy trên web https) ---------- */
+  /* ---------- tạo lối tắt trên màn hình chính / màn hình nền (khi chạy trên web https) ---------- */
   (function () {
     var deferred = null, top = false; try { top = window.top === window; } catch (e) {}
     var web = top && (location.protocol === 'https:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname));
     var alone = false; try { alone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; } catch (e) {}
     var ua = navigator.userAgent || '', ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1), dev = ios ? 'ios' : /Android/i.test(ua) ? 'and' : 'pc';
-    function show(on) { $('btnInstall').hidden = !on; $('installBar').hidden = !on; }
+    function show(on) { $('btnInstall').hidden = !on; }
     function guide() {
       Array.prototype.forEach.call(document.querySelectorAll('#insSteps [data-dev]'), function (el) { el.hidden = el.getAttribute('data-dev') !== dev; });
       $('insGo').hidden = !deferred; $('insNote').hidden = !!deferred;
@@ -1815,17 +1795,13 @@ return qrcode;
       var d = deferred; deferred = null; d.prompt();
       d.userChoice.then(function (r) { if (r && r.outcome === 'accepted') closeDlg($('dlgInstall')); else deferred = d; }, function () {});
     }
-    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; if (web && !alone) show(true); });
-    window.addEventListener('appinstalled', function () { deferred = null; show(false); closeDlg($('dlgInstall')); toast('Đã cài xong. Mở phần mềm từ biểu tượng trên màn hình chính hoặc màn hình nền.'); });
-    $('btnInstall').onclick = ask; $('btnInstall2').onclick = ask; $('insGo').onclick = ask;
-    $('btnInstallHow').onclick = guide;
+    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; if (web && !alone) show(true); $('insGo').hidden = false; $('insNote').hidden = true; });
+    window.addEventListener('appinstalled', function () { deferred = null; show(false); closeDlg($('dlgInstall')); toast('Đã tạo lối tắt. Mở phần mềm từ biểu tượng trên màn hình chính hoặc màn hình nền.'); });
+    $('btnInstall').onclick = ask; $('insGo').onclick = ask;
     if (web) {
       var l = document.createElement('link'); l.rel = 'manifest'; l.href = 'manifest.webmanifest'; document.head.appendChild(l);
       if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
       if (!alone) show(true);
-      /* trang chạy trên GitHub Pages: dẫn tới bản Windows trong mục Releases của chính kho đó */
-      var m = /^([a-z0-9-]+)\.github\.io$/i.exec(location.hostname), repo = location.pathname.split('/')[1];
-      if (m && repo) { $('insExe').href = 'https://github.com/' + m[1] + '/' + encodeURIComponent(repo) + '/releases/latest'; $('insExeBox').hidden = false; }
     }
   })();
 

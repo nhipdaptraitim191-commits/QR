@@ -9,7 +9,7 @@ Phần mềm tạo mã QR miễn phí, giao diện tiếng Việt. Phần mềm 
 - **Thiết kế:** 22 mẫu có sẵn (12 mẫu hiện đại, 10 mẫu cổ điển), màu chuyển sắc thẳng hoặc toả tròn, màu riêng cho ô định vị, 9 kiểu điểm, 7 kiểu ô định vị, nền trong suốt, chèn logo, 5 kiểu khung và nhãn.
 - **Trợ lý AI thiết kế tự động (offline):** phân tích màu logo ngay trên máy, tự phối màu, chọn nền, khung, viền, gợi ý tiêu đề (không tự điền), rồi tự vẽ thử và chỉnh cho tới khi mã quét được. Có nút tự sửa thiết kế khó quét và nút hoàn tác. Không dùng mạng, không gửi dữ liệu đi đâu.
 - **Kho mẫu AI:** 1.000 mẫu hiện đại (40 tông màu, 25 kiểu dáng), lọc theo tông màu và kiểu dáng; có nút để AI tự sáng tạo thêm mẫu mới, mỗi mẫu mới đều được giải mã thử trước khi hiện ra.
-- **Tải về màn hình chính:** bản chạy trên web có nút "Tải về màn hình chính" để thêm biểu tượng phần mềm lên màn hình chính của điện thoại hoặc màn hình nền của máy tính, kèm hướng dẫn cho từng loại máy.
+- **Lối tắt trên màn hình chính:** bản chạy trên web có nút "Tạo lối tắt" ở thanh trên để đưa biểu tượng phần mềm ra màn hình chính của điện thoại hoặc màn hình nền của máy tính, kèm hướng dẫn cho từng loại máy.
 - **Tự kiểm tra:** sau mỗi thay đổi, phần mềm tự giải mã lại ảnh vừa vẽ và báo ngay nếu thiết kế làm mã khó quét.
 - **Xuất file:** PNG tới khoảng 4096 px, SVG vector, sao chép để dán vào Word hoặc Zalo, in trực tiếp.
 - **Toàn màn hình:** nút trên thanh đầu trang mở cả phần mềm toàn màn hình để dễ thao tác. Nút "Phóng to mã" hiện mã QR thật to trên nền trắng để trình chiếu cho nhiều người cùng quét.
@@ -33,7 +33,7 @@ File `.exe` chưa có chữ ký số nên lần đầu mở, Windows có thể h
 2. Giải nén bộ mã nguồn, vào trang kho vừa tạo, chọn **uploading an existing file**, kéo thả **toàn bộ file và thư mục bên trong** (kể cả thư mục `.github`) rồi bấm **Commit changes**.
 3. Bật trang web: **Settings → Pages → Source: Deploy from a branch → Branch: main, thư mục / (root) → Save**. Sau khoảng một phút, trang có tại `https://<tên-tài-khoản>.github.io/<tên-kho>/`.
 4. Đóng gói file exe: vào tab **Actions**, chọn **Đóng gói ứng dụng Windows**, bấm **Run workflow**. Khoảng 5 phút sau, tải file ở mục **Artifacts** của lần chạy đó.
-5. Phát hành chính thức: **Releases → Draft a new release**, tạo thẻ mới dạng `v2.9.0` rồi **Publish release**. GitHub tự đóng gói và đính hai file `.exe` vào bản phát hành.
+5. Phát hành chính thức: **Releases → Draft a new release**, tạo thẻ mới dạng `v2.9.1` rồi **Publish release**. GitHub tự đóng gói và đính hai file `.exe` vào bản phát hành.
 
 Nếu thư mục `.github` không tải lên được bằng cách kéo thả, hãy tạo file trực tiếp trên GitHub: **Add file → Create new file**, đặt tên `.github/workflows/release.yml` rồi dán nội dung của file cùng tên trong bộ mã nguồn.
 

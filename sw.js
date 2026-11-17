@@ -1,5 +1,5 @@
 /* Phần mềm tạo mã quét QR chuyên nghiệp: giữ bản sao để dùng được khi mất mạng. Có mạng thì luôn lấy bản mới nhất. */
-const CACHE = 'tao-ma-qr-2.9.0';
+const CACHE = 'tao-ma-qr-2.9.1';
 const ASSETS = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png'];
 
 self.addEventListener('install', (event) => {
