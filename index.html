@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Phần mềm tạo mã quét QR chuyên nghiệp 2.6.0 · miễn phí, chạy hoàn toàn trên máy.
+  Phần mềm tạo mã quét QR chuyên nghiệp 2.9.0 · miễn phí, chạy hoàn toàn trên máy.
   Phần mềm được viết bởi Võ Hữu Ngợi - 0917010170.
   Thư viện đi kèm: QR Code Generator for JavaScript (Kazuhiko Arase, MIT), jsQR (Cosmo Wolfe, Apache-2.0),
   phông chữ Be Vietnam Pro (SIL Open Font License 1.1). Chi tiết trong THIRD-PARTY-NOTICES.md.
@@ -122,6 +122,19 @@ main{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:30px 24p
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
 .chips li{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--on-ground);border:1px solid var(--on-ground-line);background:var(--on-ground-fill);border-radius:999px;padding:5px 12px 5px 9px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .chips svg{width:15px;height:15px;flex:0 0 15px;color:var(--gold)}
+.install{display:flex;align-items:center;gap:14px;margin:18px 0 0;flex-wrap:wrap}
+.install[hidden]{display:none}
+.install p{margin:0;flex:1 1 260px;font-size:13.5px;line-height:1.55;color:var(--on-ground-mute);max-width:52ch}
+.cta{display:inline-flex;align-items:center;gap:9px;border:0;cursor:pointer;font:inherit;font-size:15px;font-weight:800;letter-spacing:-.01em;min-height:50px;padding:10px 22px;border-radius:var(--r-ctl);
+  color:var(--gold-ink);background:linear-gradient(180deg,#ffe07a 0%,#ffc935 55%,#f0b21a 100%);box-shadow:0 8px 22px rgba(90,0,10,.35),inset 0 1px 0 rgba(255,255,255,.55);text-shadow:none;transition:transform .12s ease,filter .12s ease}
+.cta:hover{filter:brightness(1.06)}.cta:active{transform:scale(.97)}
+.cta svg{width:19px;height:19px;flex:0 0 19px}
+.lk{border:0;background:none;padding:0;font:inherit;font-weight:600;color:var(--gold);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.steps h4{font-size:14.5px;margin:0 0 8px}
+.steps ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.6}
+.steps b{font-weight:700;color:var(--accent-t)}
+.exe{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px dashed var(--line2);padding-top:14px;font-size:13.5px;color:var(--mute)}
+.exe[hidden]{display:none}.exe span{flex:1 1 220px}
 
 .card{background:var(--paper);border:1px solid transparent;border-radius:var(--r-panel);box-shadow:var(--shadow)}
 html[data-theme="dark"] .card{border-color:var(--line)}
@@ -145,6 +158,7 @@ html[data-theme="dark"] .card{border-color:var(--line)}
 .seg{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:6px}
 .seg button{gap:6px;padding:11px 6px 9px}
 .seg button svg{width:30px;height:30px;flex:0 0 30px}
+@media(min-width:600px){#segDot{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .seg.txt{grid-template-columns:repeat(3,minmax(0,1fr))}
 .seg.txt button{flex-direction:row;justify-content:center;align-items:center;padding:8px 8px;min-height:44px}
 
@@ -204,6 +218,15 @@ html[data-theme="dark"] .ai{background:linear-gradient(135deg,#3a2a08,#3d1217);b
 .presets button:hover{background:var(--paper3)}
 .presets .pl{grid-column:1/-1;font-size:13px;font-weight:600;color:var(--mute);margin-top:4px}
 .presets .pl:first-child{margin-top:0}
+.libgo{width:100%;min-height:46px;font-size:14.5px;border-color:var(--gold);background:linear-gradient(135deg,#fff6cf,#ffffff)}
+html[data-theme="dark"] .libgo{background:linear-gradient(135deg,#3a2a08,#2a1114)}
+#dlgLib{width:min(980px,calc(100vw - 28px))}
+#libGrid{grid-template-columns:repeat(auto-fill,minmax(118px,1fr))}
+#libGrid button{font-size:12px;line-height:1.3}
+#libGen{min-height:46px}
+#libMore{min-height:46px}
+.capfl{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line2)}
+.capfl input{font-weight:600}
 .presets canvas{height:84px;width:auto;max-width:100%;border-radius:5px;background:#fff;box-shadow:0 0 0 1px rgba(60,8,12,.08),0 6px 12px -6px rgba(60,8,12,.35);transition:transform .18s}
 .presets button:hover canvas{transform:translateY(-2px)}
 
@@ -461,7 +484,7 @@ dialog[open]{animation:dlg .2s ease-out}
   .foot{order:7;margin-top:8px}
 }
 @media (max-width:940px) and (max-height:520px){.proof{position:static}html{scroll-padding-top:0}}
-@media (max-width:760px){.hb .lb{display:none}.hb{width:40px;padding:0;justify-content:center}.brand .tag{display:none}}
+@media (max-width:760px){#btnInstall{display:none}.hb .lb{display:none}.hb{width:40px;padding:0;justify-content:center}.brand .tag{display:none}}
 @media (max-width:560px){
   .pad{padding:16px}
   .row{grid-template-columns:1fr}
@@ -502,7 +525,7 @@ dialog[open]{animation:dlg .2s ease-out}
       <button class="hb" id="btnBatch" type="button" title="Tạo nhiều mã QR cùng lúc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><path d="M17 14v6M14 17h6"/></svg><span class="lb">Tạo hàng loạt</span></button>
       <button class="hb" id="btnScan" type="button" title="Quét mã QR bằng camera hoặc đọc từ ảnh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M4 12h16"/></svg><span class="lb">Quét mã QR</span></button>
       <button class="hb" id="btnFull" type="button" aria-pressed="false" title="Mở phần mềm toàn màn hình để dễ thao tác"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span class="lb" id="lbFull">Toàn màn hình</span></button>
-      <button class="hb gold" id="btnInstall" type="button" hidden title="Cài phần mềm thành ứng dụng trên máy này"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg><span class="lb">Cài ứng dụng</span></button>
+      <button class="hb gold" id="btnInstall" type="button" hidden title="Cài phần mềm lên màn hình chính hoặc màn hình nền của máy này"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg><span class="lb">Tải về máy</span></button>
       <button class="hb sq" id="btnTheme" type="button" title="Đổi giao diện sáng/tối" aria-label="Đổi giao diện sáng/tối"></button>
     </div>
   </div>
@@ -521,6 +544,10 @@ dialog[open]{animation:dlg .2s ease-out}
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.3-2.9 7.6-7 9.5-4.1-1.9-7-5.2-7-9.5V6z"/><path d="M9 12l2.2 2.2L15 10.5"/></svg>Dữ liệu ở lại trên máy</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M3 3l18 18"/></svg>Dùng được khi mất mạng</li>
         </ul>
+        <div class="install" id="installBar" hidden>
+          <button class="cta" id="btnInstall2" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Tải về màn hình chính</button>
+          <p>Thêm biểu tượng phần mềm lên màn hình chính hoặc màn hình nền để mở nhanh như một ứng dụng, dùng được cả khi mất mạng. <button class="lk" id="btnInstallHow" type="button">Xem hướng dẫn</button></p>
+        </div>
       </div>
 
       <div class="card pad sec-content">
@@ -593,6 +620,7 @@ dialog[open]{animation:dlg .2s ease-out}
           <label class="fl"><span>Địa điểm</span><input id="qEl" maxlength="200" autocomplete="off"></label>
           <label class="fl"><span>Ghi chú</span><textarea id="qEd" rows="2" maxlength="500"></textarea></label>
         </div>
+        <label class="fl capfl"><span>Tên tiêu đề trên mã QR <span class="hint">(có thể để trống)</span></span><input id="qCap" maxlength="90" autocomplete="off" placeholder="vd: Wi-Fi Văn phòng, Thực đơn quán, Quét để chuyển khoản"><span class="hint">Tiêu đề hiện ngay dưới mã, hoặc trên nhãn nếu bạn chọn khung có nhãn.</span></label>
       </div>
 
       <div class="card pad sec-design">
@@ -615,6 +643,7 @@ dialog[open]{animation:dlg .2s ease-out}
             </div>
             <div class="ai-log" id="aiLog" hidden role="status"></div>
           </div>
+          <button class="btn libgo" id="btnLib" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Mở kho mẫu AI, 1.000 mẫu</button>
           <div class="presets" id="presets"></div>
           <p class="hint">Chọn một mẫu rồi chỉnh tiếp ở các thẻ bên cạnh. Mẫu chỉ đổi màu và kiểu dáng, không đổi nội dung, logo hay kích thước.</p>
           <div><button class="linkbtn" id="btnReset" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9M4 4v4.5h4.5"/></svg>Đặt lại kiểu dáng mặc định</button></div>
@@ -659,6 +688,8 @@ dialog[open]{animation:dlg .2s ease-out}
               <button type="button" data-v="hb"><svg viewBox="0 0 36 36" fill="currentColor"><rect x="4" y="5" width="19" height="7" rx="3.5"/><rect x="13" y="15" width="19" height="7" rx="3.5"/><rect x="4" y="25" width="11" height="7" rx="3.5"/><rect x="23" y="25" width="9" height="7" rx="3.5"/></svg>Sọc ngang</button>
               <button type="button" data-v="cl"><svg viewBox="0 0 36 36" fill="currentColor"><path id="lf0" d="M8 4h4v4a4 4 0 0 1-4 4H4V8a4 4 0 0 1 4-4z"/><use href="#lf0" x="10"/><use href="#lf0" y="10"/><use href="#lf0" x="20" y="10"/><use href="#lf0" x="10" y="20"/></svg>Lá</button>
               <button type="button" data-v="sr"><svg viewBox="0 0 36 36" fill="currentColor"><rect x="4.5" y="4.5" width="7" height="7" rx="2"/><rect x="14.5" y="4.5" width="7" height="7" rx="2"/><rect x="4.5" y="14.5" width="7" height="7" rx="2"/><rect x="24.5" y="14.5" width="7" height="7" rx="2"/><rect x="14.5" y="24.5" width="7" height="7" rx="2"/><rect x="24.5" y="24.5" width="7" height="7" rx="2"/></svg>Ô bo rời</button>
+              <button type="button" data-v="dm"><svg viewBox="0 0 36 36" fill="currentColor"><path id="dm0" d="M8 3.5l4.5 4.5L8 12.5 3.5 8z"/><use href="#dm0" x="10"/><use href="#dm0" y="10"/><use href="#dm0" x="20" y="10"/><use href="#dm0" x="10" y="20"/><use href="#dm0" x="20" y="20"/></svg>Kim cương</button>
+              <button type="button" data-v="pl"><svg viewBox="0 0 36 36" fill="currentColor"><path id="pl0" d="M6.5 4h3v2.5H12v3H9.500V12h-3V9.500H4v-3h2.500z"/><use href="#pl0" x="10"/><use href="#pl0" y="10"/><use href="#pl0" x="20" y="10"/><use href="#pl0" x="10" y="20"/><use href="#pl0" x="20" y="20"/></svg>Chữ thập</button>
             </div>
           </div>
           <div class="fl"><span>Ô định vị (3 góc)</span>
@@ -668,6 +699,8 @@ dialog[open]{animation:dlg .2s ease-out}
               <button type="button" data-v="ci"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="3"><circle cx="18" cy="18" r="13"/><circle cx="18" cy="18" r="5" fill="currentColor" stroke="none"/></svg>Tròn</button>
               <button type="button" data-v="lf"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="3"><path d="M13 5h10a8 8 0 0 1 8 8v18H13a8 8 0 0 1-8-8V13a8 8 0 0 1 8-8z"/><path d="M16 13h4a3 3 0 0 1 3 3v7h-7a3 3 0 0 1-3-3v-4a3 3 0 0 1 3-3z" fill="currentColor" stroke="none"/></svg>Giọt nước</button>
               <button type="button" data-v="mx"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="3"><rect x="5" y="5" width="26" height="26" rx="7"/><circle cx="18" cy="18" r="5.5" fill="currentColor" stroke="none"/></svg>Bo và tròn</button>
+              <button type="button" data-v="oc"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M9 5h18l4 4v18l-4 4H9l-4-4V9z"/><path d="M14.5 13h7l1.5 1.5v7L21.5 23h-7L13 21.5v-7z" fill="currentColor" stroke="none"/></svg>Vát góc</button>
+              <button type="button" data-v="tw"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="3"><path d="M14 5h17v17a9 9 0 0 1-9 9H5V14a9 9 0 0 1 9-9z"/><path d="M17 13h6v6a4 4 0 0 1-4 4h-6v-6a4 4 0 0 1 4-4z" fill="currentColor" stroke="none"/></svg>Lá đôi</button>
             </div>
           </div>
           <div class="row">
@@ -696,7 +729,7 @@ dialog[open]{animation:dlg .2s ease-out}
             </div>
           </div>
           <label class="fl"><span>Viền trắng quanh mã: <b class="val" id="qMg2V">4</b> ô <span class="hint" id="mg2Hint"></span></span><input type="range" id="qMg2" min="0" max="10" step="1" value="4"></label>
-          <label class="fl"><span>Dòng chữ trên nhãn <span class="hint">(có thể để trống)</span></span><input id="qCap" maxlength="90" autocomplete="off" placeholder="vd: Quét để xem menu"></label>
+          <p class="hint" id="frHint" hidden>Khung này có nhãn. Hãy nhập <b>Tên tiêu đề trên mã QR</b> ở mục Nội dung của mã để chữ hiện trên nhãn.</p>
           <label class="fl" id="fcWrap" hidden><span>Màu khung</span><span class="colorrow"><input type="color" id="qFc" value="#c1121f"><input type="text" id="qFcT" maxlength="7" autocomplete="off" aria-label="Mã màu khung"></span></label>
         </div>
       </div>
@@ -760,7 +793,60 @@ dialog[open]{animation:dlg .2s ease-out}
   </div>
 </dialog>
 
+<!-- Kho mẫu AI -->
+<dialog id="dlgLib" aria-labelledby="dlgLibH">
+  <div class="dg">
+    <div class="dg-h"><div class="dg-t"><h3 id="dlgLibH">Kho mẫu AI</h3><p>1.000 mẫu do trợ lý AI phối từ 40 tông màu và 25 kiểu dáng, màu mã luôn đủ đậm so với nền để dễ quét. Bấm một mẫu để áp dụng; nội dung, logo và kích thước của bạn được giữ nguyên.</p></div>
+      <button class="x" type="button" data-close aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="row">
+      <label class="fl"><span>Tông màu</span><select id="libPal"></select></label>
+      <label class="fl"><span>Kiểu dáng</span><select id="libRec"></select></label>
+    </div>
+    <button class="btn primary" id="libGen" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15v4M17 17h4"/></svg>AI sáng tạo thêm 12 mẫu mới</button>
+    <div class="prog" id="libMsg" role="status"></div>
+    <div class="presets" id="libGrid"></div>
+    <button class="btn" id="libMore" type="button" hidden>Xem thêm 60 mẫu</button>
+  </div>
+</dialog>
+
 <!-- Quét mã QR: camera hoặc ảnh -->
+<dialog id="dlgInstall" aria-labelledby="dlgInstallH">
+  <div class="dg">
+    <div class="dg-h"><div class="dg-t"><h3 id="dlgInstallH">Tải phần mềm về màn hình chính</h3><p>Sau khi cài, phần mềm có biểu tượng riêng trên màn hình chính hoặc màn hình nền, mở trong cửa sổ riêng và dùng được cả khi mất mạng. Không tốn phí, gỡ lúc nào cũng được.</p></div>
+      <button class="x" type="button" data-close aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <button class="btn primary" id="insGo" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Cài ngay lên máy này</button>
+    <p class="hint" id="insNote">Trình duyệt này không cho phần mềm tự mở bảng cài đặt. Bạn làm theo các bước dưới đây, chỉ mất khoảng 10 giây.</p>
+    <div id="insSteps">
+      <div class="steps" data-dev="pc">
+        <h4>Trên máy tính (Chrome, Edge, Cốc Cốc)</h4>
+        <ol>
+          <li>Nhìn cuối thanh địa chỉ, bấm biểu tượng cài đặt (hình màn hình có mũi tên xuống), rồi bấm <b>Cài đặt</b>.</li>
+          <li>Nếu không thấy biểu tượng đó: mở menu ba chấm ở góc trên bên phải, chọn mục <b>Cài đặt trang dưới dạng ứng dụng</b> hoặc <b>Tạo lối tắt</b>. Trong Chrome, mục này nằm ở "Truyền, lưu và chia sẻ"; trong Edge nằm ở "Ứng dụng".</li>
+          <li>Biểu tượng phần mềm hiện trên màn hình nền và trong menu Start. Bấm đúp là mở.</li>
+        </ol>
+      </div>
+      <div class="steps" data-dev="and" hidden>
+        <h4>Trên điện thoại, máy tính bảng Android</h4>
+        <ol>
+          <li>Mở menu ba chấm của trình duyệt.</li>
+          <li>Chọn <b>Thêm vào màn hình chính</b> (hoặc <b>Cài đặt ứng dụng</b>), rồi bấm <b>Cài đặt</b>.</li>
+          <li>Biểu tượng phần mềm hiện trên màn hình chính.</li>
+        </ol>
+      </div>
+      <div class="steps" data-dev="ios" hidden>
+        <h4>Trên iPhone, iPad</h4>
+        <ol>
+          <li>Mở trang này bằng Safari.</li>
+          <li>Bấm nút Chia sẻ (hình vuông có mũi tên hướng lên).</li>
+          <li>Kéo xuống, chọn <b>Thêm vào MH chính</b>, rồi bấm <b>Thêm</b>.</li>
+        </ol>
+      </div>
+    </div>
+    <p class="hint">Nếu trình duyệt không có các mục trên, hãy mở trang bằng Chrome hoặc Edge rồi làm lại.</p>
+    <div class="exe" id="insExeBox" hidden><span>Muốn dùng bản chạy riêng trên Windows, không cần trình duyệt?</span><a class="btn" id="insExe" target="_blank" rel="noopener noreferrer">Tải bản Windows (.exe)</a></div>
+  </div>
+</dialog>
+
 <dialog id="dlgScan" aria-labelledby="dlgScanH">
   <div class="dg">
     <div class="dg-h"><div class="dg-t"><h3 id="dlgScanH">Quét mã QR</h3><p>Quét bằng camera hoặc chọn một ảnh có mã QR để xem nội dung bên trong. Hình ảnh được xử lý ngay trên máy, không tải lên đâu cả.</p></div>
@@ -800,7 +886,7 @@ return qrcode;
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
-  var VERSION = '2.6.0';
+  var VERSION = '2.9.0';
   var KEY = 'qr-studio-v1';
   var DEF = { fg: '#15171c', bg: '#ffffff', tr: false, dot: 'sq', eye: 'sq', ec: 'M', mg: 4, size: '1024',
     gm: '', g2: '#c1121f', ga: 135, em: false, eo: '#15171c', ei: '#c1121f', fr: 'none', fc: '#c1121f' };
@@ -853,6 +939,8 @@ return qrcode;
   Object.keys(DEF).forEach(function (k) { if (S.d[k] == null) S.d[k] = DEF[k]; });
   if (S.logo.sz == null) S.logo.sz = 22; if (S.logo.pad == null) S.logo.pad = true; S.logo.m = S.logo.m === 'file' ? 'file' : '';
   if (!/^(preset|color|shape|logo|frame)$/.test(S.tab)) S.tab = 'preset';
+  /* từ bản 2.8 tiêu đề do người dùng tự nhập: bỏ dòng chữ mà các bản trước tự điền */
+  if (S.capv !== 2) { if (S.d.cap === 'Quét mã tại đây') S.d.cap = ''; S.capv = 2; }
   var saveT = 0;
   function save() { clearTimeout(saveT); saveT = setTimeout(function () { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { try { var c = JSON.parse(JSON.stringify(S)); if (c.logo) c.logo.src = ''; localStorage.setItem(KEY, JSON.stringify(c)); } catch (e2) {} } }, 200); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -951,6 +1039,7 @@ return qrcode;
       'V' + k(y + a) + (a ? 'A' + k(a) + ' ' + k(a) + ' 0 0 1 ' + k(x + a) + ' ' + k(y) : '') + 'Z';
   }
   function rq(x, y, w, h, r) { return rr(x, y, w, h, r, r, r, r); }
+  function oct(x, y, s, c) { return 'M' + k(x + c) + ' ' + k(y) + 'H' + k(x + s - c) + 'L' + k(x + s) + ' ' + k(y + c) + 'V' + k(y + s - c) + 'L' + k(x + s - c) + ' ' + k(y + s) + 'H' + k(x + c) + 'L' + k(x) + ' ' + k(y + s - c) + 'V' + k(y + c) + 'Z'; }
   function circ(cx, cy, r) { return 'M' + k(cx - r) + ' ' + k(cy) + 'A' + k(r) + ' ' + k(r) + ' 0 1 0 ' + k(cx + r) + ' ' + k(cy) + 'A' + k(r) + ' ' + k(r) + ' 0 1 0 ' + k(cx - r) + ' ' + k(cy) + 'Z'; }
   var scratch = document.createElement('canvas').getContext('2d');
   var FONT = '"Inter","Segoe UI",Roboto,Arial,sans-serif';
@@ -998,6 +1087,8 @@ return qrcode;
       if (!on(r, c)) continue; x = c + g + ox; y = r + g + oy;
       if (opt.dot === 'dt') d.push(circ(x + 0.5, y + 0.5, 0.45));
       else if (opt.dot === 'sr') d.push(rq(x + 0.07, y + 0.07, 0.86, 0.86, 0.26));
+      else if (opt.dot === 'dm') d.push('M' + k(x + 0.5) + ' ' + k(y - 0.06) + 'L' + k(x + 1.06) + ' ' + k(y + 0.5) + 'L' + k(x + 0.5) + ' ' + k(y + 1.06) + 'L' + k(x - 0.06) + ' ' + k(y + 0.5) + 'Z');
+      else if (opt.dot === 'pl') d.push('M' + k(x + 0.03) + ' ' + k(y + 0.29) + 'h.94v.42h-.94zM' + k(x + 0.29) + ' ' + k(y + 0.03) + 'h.42v.94h-.42z');
       else if (opt.dot === 'rd' || opt.dot === 'cl') {
         tp = on(r - 1, c); bt = on(r + 1, c); lf = on(r, c - 1); rt = on(r, c + 1);
         d.push(rr(x, y, 1 + (rt ? 0.02 : 0), 1 + (bt ? 0.02 : 0), !tp && !lf ? 0.5 : 0, opt.dot === 'rd' && !tp && !rt ? 0.5 : 0, !bt && !rt ? 0.5 : 0, opt.dot === 'rd' && !bt && !lf ? 0.5 : 0));
@@ -1008,6 +1099,8 @@ return qrcode;
       var ex = p[1] + g + ox, ey = p[0] + g + oy;
       if (opt.eye === 'ci') { eo.push(circ(ex + 3.5, ey + 3.5, 3.5), circ(ex + 3.5, ey + 3.5, 2.5)); ei.push(circ(ex + 3.5, ey + 3.5, 1.5)); }
       else if (opt.eye === 'rd' || opt.eye === 'mx') { eo.push(rq(ex, ey, 7, 7, 2.2), rq(ex + 1, ey + 1, 5, 5, 1.4)); ei.push(opt.eye === 'mx' ? circ(ex + 3.5, ey + 3.5, 1.55) : rq(ex + 2, ey + 2, 3, 3, 0.9)); }
+      else if (opt.eye === 'oc') { eo.push(oct(ex, ey, 7, 1), oct(ex + 1, ey + 1, 5, 0.6)); ei.push(oct(ex + 2, ey + 2, 3, 0.45)); }
+      else if (opt.eye === 'tw') { eo.push(rr(ex, ey, 7, 7, 2.3, 0, 2.3, 0), rr(ex + 1, ey + 1, 5, 5, 1.5, 0, 1.5, 0)); ei.push(rr(ex + 2, ey + 2, 3, 3, 0.9, 0, 0.9, 0)); }
       else if (opt.eye === 'lf') {
         /* góc nhọn của giọt nước luôn hướng vào tâm mã */
         var q = function (R) { return p[2] === 0 ? [R, R, 0, R] : p[2] === 1 ? [R, R, R, 0] : [R, 0, R, R]; }, A = q(2.6), B = q(1.7), C = q(1.1);
@@ -1150,7 +1243,7 @@ return qrcode;
     $('qLsz').value = S.logo.sz; $('qLszV').textContent = S.logo.sz + '%'; $('qLpad').checked = !!S.logo.pad; logoUi(); designUi();
   }
   function showMg() { $('qMg').value = $('qMg2').value = S.d.mg; $('qMgV').textContent = $('qMg2V').textContent = S.d.mg; }
-  function designUi() { $('mg2Hint').textContent = !S.d.fr || S.d.fr === 'none' ? '(phần trắng bao ngoài mã khi không dùng khung)' : '(khoảng trắng giữa mã và khung)'; $('gradOpt').hidden = !S.d.gm; $('gaWrap').hidden = S.d.gm !== 'lin'; $('eyeOpt').hidden = !S.d.em; $('fcWrap').hidden = !S.d.fr || S.d.fr === 'none'; }
+  function designUi() { $('frHint').hidden = !(S.d.fr === 'bot' || S.d.fr === 'top' || S.d.fr === 'pill') || !!String(S.d.cap || '').trim(); $('mg2Hint').textContent = !S.d.fr || S.d.fr === 'none' ? '(phần trắng bao ngoài mã khi không dùng khung)' : '(khoảng trắng giữa mã và khung)'; $('gradOpt').hidden = !S.d.gm; $('gaWrap').hidden = S.d.gm !== 'lin'; $('eyeOpt').hidden = !S.d.em; $('fcWrap').hidden = !S.d.fr || S.d.fr === 'none'; }
   function seg(id, v) { Array.prototype.forEach.call($(id).children, function (b) { var on = b.getAttribute('data-v') === v; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); }); }
   function logoUi() { var s = logoSrc(), i = $('qLogoI'); i.hidden = !s; if (s) i.src = s; $('qLogoX').hidden = !s; $('logoOpt').hidden = !s; $('qLogoBT').textContent = s ? 'Đổi logo' : 'Chọn ảnh logo'; }
 
@@ -1198,14 +1291,14 @@ return qrcode;
   });
   function segBind(id, key, after) { $(id).addEventListener('click', function (e) { var b = e.target.closest('button[data-v]'); if (!b) return; S.d[key] = b.getAttribute('data-v'); seg(id, S.d[key]); if (after) after(); designUi(); save(); later(); }); }
   segBind('segDot', 'dot'); segBind('segEye', 'eye'); segBind('segGm', 'gm');
-  segBind('segFr', 'fr', function () { if (S.d.fr === 'bot' || S.d.fr === 'top' || S.d.fr === 'pill') { if (!String(S.d.cap || '').trim()) { S.d.cap = 'Quét mã tại đây'; $('qCap').value = S.d.cap; } } });
+  segBind('segFr', 'fr');
   $('qTr').addEventListener('change', function () { S.d.tr = this.checked; save(); render(); });
   $('qEm').addEventListener('change', function () { S.d.em = this.checked; designUi(); save(); render(); });
   $('qEc').addEventListener('change', function () { S.d.ec = this.value; save(); render(); });
   ['qMg', 'qMg2'].forEach(function (id) { $(id).addEventListener('input', function () { S.d.mg = +this.value; showMg(); save(); later(); }); });
   $('qGa').addEventListener('input', function () { S.d.ga = +this.value; $('qGaV').textContent = this.value + '°'; save(); later(); });
   $('qSize').addEventListener('change', function () { S.d.size = this.value; save(); });
-  $('qCap').addEventListener('input', function () { S.d.cap = this.value; save(); later(); });
+  $('qCap').addEventListener('input', function () { S.d.cap = this.value; designUi(); save(); later(); });
   $('qLsz').addEventListener('input', function () { S.logo.sz = +this.value; $('qLszV').textContent = this.value + '%'; save(); later(); });
   $('qLpad').addEventListener('change', function () { S.logo.pad = this.checked; save(); render(); });
   $('qLogoB').onclick = function () { $('qLogoF').click(); };
@@ -1232,14 +1325,13 @@ return qrcode;
     var box = $('presets');
     box.innerHTML = PRESETS.map(function (p, i) { return (!i || PRESETS[i - 1].g !== p.g ? '<div class="pl">' + esc(p.g) + '</div>' : '') + '<button type="button" data-i="' + i + '"><canvas width="10" height="10"></canvas>' + esc(p.n) + '</button>'; }).join('');
     Array.prototype.forEach.call(box.querySelectorAll('button'), function (b, i) {
-      var p = PRESETS[i], o = presetOpts(p); o.ec = 'M'; o.mg = 2; o.cap = p.cap ? 'Quét mã' : ''; o.logo = ''; o.lsz = 22; o.lpad = true;
+      var p = PRESETS[i], o = presetOpts(p); o.ec = 'M'; o.mg = 2; o.cap = p.cap ? 'Tiêu đề' : ''; o.logo = ''; o.lsz = 22; o.lpad = true;
       try { var g = build('https://qr.studio', o); paint(b.firstChild, g, Math.max(2, Math.floor(152 / g.W)), null); } catch (e) {}
     });
     box.addEventListener('click', function (e) {
       var b = e.target.closest('button[data-i]'); if (!b) return; var p = PRESETS[+b.getAttribute('data-i')], o = presetOpts(p);
       LOOK.forEach(function (k) { S.d[k] = o[k]; });
-      if (p.cap && !String(S.d.cap || '').trim()) S.d.cap = p.cap;
-      save(); writeDesign(); render(); toast('Đã áp dụng mẫu "' + p.n + '".');
+      save(); writeDesign(); render(); toast('Đã áp dụng mẫu "' + p.n + '".' + (p.cap && !String(S.d.cap || '').trim() ? ' Nhập tiêu đề để hiện nhãn trên khung.' : ''));
     });
   })();
 
@@ -1361,7 +1453,7 @@ return qrcode;
   $('sCamStop').onclick = function () { camStop(); $('sMsg').textContent = ''; };
   $('sCamSw').onclick = function () { if (cam.devs.length < 2) return; cam.idx = (cam.idx + 1) % cam.devs.length; camStart(cam.devs[cam.idx].deviceId); };
   $('dlgScan').addEventListener('close', camStop);
-  document.addEventListener('visibilitychange', function () { if (document.hidden && cam.stream) { camStop(); $('sMsg').textContent = 'Camera đã tắt khi anh/chị rời trang. Bấm quét lại để tiếp tục.'; } });
+  document.addEventListener('visibilitychange', function () { if (document.hidden && cam.stream) { camStop(); $('sMsg').textContent = 'Camera đã tắt khi bạn rời trang. Bấm quét lại để tiếp tục.'; } });
 
   /* ---------- đọc mã từ ảnh ---------- */
   function decodeImage(im) {
@@ -1541,7 +1633,7 @@ return qrcode;
     if (!logoSrc() && S.d.ec === 'L') S.d.ec = 'M';
     notes.push('Nền ' + (bg === '#ffffff' ? 'trắng' : 'nhạt cùng tông ' + bg.toUpperCase()) + ', màu mã ' + S.d.fg.toUpperCase() + (v.gm ? ' chuyển sang ' + S.d.g2.toUpperCase() : '') + '.');
     notes.push('Kiểu dáng: ' + AIVN[aiVar % AIV.length] + (v.fr !== 'none' ? ', màu khung ' + S.d.fc.toUpperCase() : '') + '.');
-    if (v.fr !== 'none' && v.fr !== 'line' && !String(S.d.cap || '').trim()) { S.d.cap = S.t === 'tel' && $('qTm').value.trim() ? 'Quét để nhắn tin' : (AICAP[S.t] || 'Quét mã tại đây'); notes.push('Gợi ý dòng chữ trên nhãn: "' + S.d.cap + '".'); }
+    if (v.fr !== 'none' && v.fr !== 'line' && !String(S.d.cap || '').trim()) notes.push('Khung này có nhãn. Hãy nhập tiêu đề ở mục Nội dung của mã, ví dụ "' + (S.t === 'tel' && $('qTm').value.trim() ? 'Quét để nhắn tin' : (AICAP[S.t] || 'Quét mã tại đây')) + '".');
     var ok = aiRepair(img, notes);
     notes.push('Bấm "Tự động thiết kế" lần nữa để xem phương án khác.');
     return { notes: notes, ok: ok };
@@ -1564,6 +1656,107 @@ return qrcode;
     S.d = aiUndo.d; S.logo.sz = aiUndo.sz; S.logo.pad = aiUndo.pad; aiUndo = null; save(); writeDesign(); render(); aiShow(['Đã quay lại thiết kế trước đó.'], null, false);
   });
   $('chk').addEventListener('click', function (e) { if (!e.target.closest('[data-fix]')) return; setTab('preset'); aiRun(aiFix); var bx = $('aiBox'); if (bx.scrollIntoView) bx.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); });
+
+  /* ---------- kho mẫu AI: 40 tông màu x 25 kiểu dáng = 1.000 mẫu, màu được ép đủ tương phản với nền ---------- */
+  var LIBPAL = [['Đại dương', '#0369a1', '#0e7490'], ['Công nghệ', '#1d4ed8', '#7c3aed'], ['Tím điện tử', '#6d28d9', '#be185d'], ['Hoàng hôn', '#c2410c', '#9d174d'],
+    ['Bạc hà', '#047857', '#0f766e'], ['Rừng thông', '#166534', '#365314'], ['San hô', '#be123c', '#c2410c'], ['Hồng sen', '#be185d', '#9d174d'],
+    ['Đỏ cờ', '#b91c1c', '#7f1d1d'], ['Cam đất', '#9a3412', '#78350f'], ['Hổ phách', '#92400e', '#713f12'], ['Mận chín', '#701a75', '#4c1d95'],
+    ['Chàm', '#3730a3', '#1e3a8a'], ['Xanh đêm', '#0f172a', '#1e40af'], ['Than chì', '#1f2937', '#374151'], ['Ngọc lam', '#0f766e', '#155e75'],
+    ['Oải hương', '#5b21b6', '#6d28d9'], ['Cà phê', '#4a2c1a', '#7c2d12'], ['Ô liu', '#3f6212', '#4d7c0f'], ['Thiên thanh', '#0c4a6e', '#0369a1'],
+    ['Anh đào', '#9f1239', '#be123c'], ['Thép xanh', '#334155', '#0f766e'], ['Vàng kim', '#854d0e', '#a16207'], ['Mực tím', '#312e81', '#6b21a8'],
+    ['Biển sâu', '#075985', '#1e3a8a'], ['Lam ngọc', '#155e75', '#0e7490'], ['Rêu', '#365314', '#3f6212'], ['Đất nung', '#9a3412', '#b45309'],
+    ['Rượu vang', '#881337', '#9f1239'], ['Tím than', '#1e1b4b', '#4338ca'], ['Hồng đào', '#be185d', '#c2410c'], ['Ngọc bích', '#065f46', '#047857'],
+    ['Thạch anh', '#6b21a8', '#be185d'], ['Đồng', '#7c2d12', '#92400e'], ['Mây bão', '#1e293b', '#475569'], ['Sapphire', '#1e40af', '#0369a1'],
+    ['Lục bảo', '#15803d', '#0f766e'], ['Hồng ngọc', '#be123c', '#881337'], ['Mật ong', '#a16207', '#92400e'], ['Xám bạc', '#374151', '#1f2937']];
+  var LIBREC = [
+    { n: 'bo tròn', o: { dot: 'rd', eye: 'rd', gm: 'lin', ga: 135 } },
+    { n: 'chấm tròn', o: { dot: 'dt', eye: 'ci', em: true } },
+    { n: 'ô rời', o: { dot: 'sr', eye: 'rd', gm: 'lin', ga: 45 }, tint: true },
+    { n: 'thẻ nhãn', o: { dot: 'sr', eye: 'mx', fr: 'bot' }, cap: true },
+    { n: 'lá', o: { dot: 'cl', eye: 'lf', gm: 'rad', fr: 'line' } },
+    { n: 'sọc dọc', o: { dot: 'vb', eye: 'mx', gm: 'lin', ga: 90, em: true } },
+    { n: 'viên nhãn', o: { dot: 'dt', eye: 'ci', gm: 'lin', ga: 135, fr: 'pill' }, cap: true },
+    { n: 'khung trên', o: { dot: 'hb', eye: 'rd', fr: 'top' }, tint: true, cap: true },
+    { n: 'kim cương', o: { dot: 'dm', eye: 'oc', gm: 'lin', ga: 135 } },
+    { n: 'chữ thập', o: { dot: 'pl', eye: 'rd', em: true } },
+    { n: 'vát góc', o: { dot: 'sr', eye: 'oc', gm: 'rad' } },
+    { n: 'lá đôi', o: { dot: 'cl', eye: 'tw', gm: 'lin', ga: 45 } },
+    { n: 'cổ điển', o: { dot: 'sq', eye: 'sq' } },
+    { n: 'vuông chuyển sắc', o: { dot: 'sq', eye: 'rd', gm: 'lin', ga: 135 } },
+    { n: 'sọc ngang', o: { dot: 'hb', eye: 'mx', gm: 'lin', ga: 45 } },
+    { n: 'chấm khung mảnh', o: { dot: 'dt', eye: 'mx', fr: 'line' } },
+    { n: 'kim cương thẻ nhãn', o: { dot: 'dm', eye: 'ci', fr: 'bot' }, cap: true },
+    { n: 'chữ thập khung trên', o: { dot: 'pl', eye: 'oc', fr: 'top' }, cap: true },
+    { n: 'bo tròn nền nhạt', o: { dot: 'rd', eye: 'tw' }, tint: true },
+    { n: 'ô rời viên nhãn', o: { dot: 'sr', eye: 'ci', em: true, fr: 'pill' }, cap: true },
+    { n: 'lá toả tròn', o: { dot: 'cl', eye: 'mx', gm: 'rad', em: true } },
+    { n: 'sọc dọc thẻ nhãn', o: { dot: 'vb', eye: 'rd', gm: 'lin', ga: 90, fr: 'bot' }, cap: true },
+    { n: 'chấm nền nhạt', o: { dot: 'dt', eye: 'oc', gm: 'lin', ga: 45 }, tint: true },
+    { n: 'vuông viên nhãn', o: { dot: 'sq', eye: 'mx', fr: 'pill' }, cap: true },
+    { n: 'vát góc khung mảnh', o: { dot: 'rd', eye: 'oc', em: true, fr: 'line' } }
+  ];
+  function libMake(name, a, b, rec, pi, ri) {
+    var bg = rec.tint ? tint(a, 0.95) : '#ffffff', fg = shade(a, 5.5, bg), r = rec.o;
+    return { n: name, pi: pi, ri: ri, cap: !!rec.cap,
+      o: { fg: fg, bg: bg, tr: false, dot: r.dot, eye: r.eye, gm: r.gm || '', g2: shade(b, 5.5, bg), ga: r.ga || 135, em: !!r.em, eo: fg, ei: shade(b, 4.5, bg), fr: r.fr || 'none', fc: shade(a, 3.5, bg) } };
+  }
+  var LIB = null, libMade = 0, libView = [], libN = 0, LIBPAGE = 60;
+  function libAll() {
+    if (LIB) return LIB; LIB = [];
+    LIBPAL.forEach(function (p, i) { LIBREC.forEach(function (rec, ri) { LIB.push(libMake(p[0] + ', ' + rec.n, p[1], p[2], rec, i, ri)); }); });
+    return LIB;
+  }
+  function libThumb(cv, t) { var o = {}; Object.keys(t.o).forEach(function (k) { o[k] = t.o[k]; }); o.ec = 'M'; o.mg = 2; o.cap = t.cap ? 'Tiêu đề' : ''; o.logo = ''; o.lsz = 22; o.lpad = true; try { var g = build('https://qr.studio', o); paint(cv, g, Math.max(2, Math.floor(132 / g.W)), null); } catch (e) {} }
+  function libBtn(t) { var b = document.createElement('button'); b.type = 'button'; b._t = t; b.innerHTML = '<canvas width="10" height="10"></canvas>' + esc(t.n); return b; }
+  function libPaintQueue(btns) { var i = 0; (function step() { var end = Math.min(btns.length, i + 12); for (; i < end; i++) libThumb(btns[i].firstChild, btns[i]._t); if (i < btns.length) setTimeout(step, 0); })(); }
+  /* chỉ dựng từng trang 60 mẫu để kho 1.000 mẫu vẫn nhẹ máy */
+  function libMore() {
+    var grid = $('libGrid'), next = libView.slice(libN, libN + LIBPAGE), btns = next.map(libBtn);
+    btns.forEach(function (b) { grid.appendChild(b); }); libN += next.length; libPaintQueue(btns);
+    $('libMore').hidden = libN >= libView.length;
+    $('libMsg').textContent = libView.length ? 'Đang hiện ' + libN + ' trong ' + libView.length + ' mẫu. Bấm một mẫu để áp dụng.' : 'Không có mẫu nào khớp. Hãy chọn "Tất cả".';
+  }
+  function libFilter() {
+    var p = $('libPal').value, r = $('libRec').value;
+    libView = libAll().filter(function (t) { return (p === '' || String(t.pi) === p) && (r === '' || String(t.ri) === r); });
+    $('libGrid').innerHTML = ''; libN = 0; libMore(); $('libGrid').scrollTop = 0;
+  }
+  function libOpen() {
+    if (!$('libPal').options.length) {
+      $('libPal').innerHTML = '<option value="">Tất cả tông màu (' + LIBPAL.length + ')</option>' + LIBPAL.map(function (p, i) { return '<option value="' + i + '">' + esc(p[0]) + '</option>'; }).join('') + '<option value="ai">Mẫu AI vừa sáng tạo</option>';
+      $('libRec').innerHTML = '<option value="">Tất cả kiểu dáng (' + LIBREC.length + ')</option>' + LIBREC.map(function (r, i) { return '<option value="' + i + '">' + esc(r.n.charAt(0).toUpperCase() + r.n.slice(1)) + '</option>'; }).join('');
+      libFilter();
+    }
+    openDlg($('dlgLib'));
+  }
+  /* AI sáng tạo mẫu mới: chọn màu ngẫu nhiên trên vòng màu, ép tương phản, rồi giải mã thử; mẫu nào không đọc được thì bỏ */
+  function libInvent(count) {
+    var out = [], tries = 0;
+    while (out.length < count && tries++ < count * 4) {
+      var h = Math.random(), sat = 0.55 + Math.random() * 0.35, a = r2h(hsl2rgb(h, sat, 0.34 + Math.random() * 0.1)), b = r2h(hsl2rgb((h + (Math.random() < 0.5 ? -1 : 1) * (0.06 + Math.random() * 0.14) + 1) % 1, sat, 0.3 + Math.random() * 0.1));
+      var ri = Math.floor(Math.random() * LIBREC.length), t = libMake('Mẫu AI ' + (libMade + out.length + 1) + ', ' + LIBREC[ri].n, a, b, LIBREC[ri], 'ai', ri), o = {};
+      Object.keys(t.o).forEach(function (k) { o[k] = t.o[k]; }); o.ec = 'M'; o.mg = 4; o.cap = t.cap ? 'Tiêu đề' : ''; o.logo = ''; o.lsz = 22; o.lpad = true;
+      try { if (verify(build('https://example.com/kiem-tra-mau-moi', o), null)) out.push(t); } catch (e) {}
+    }
+    libMade += out.length; return out;
+  }
+  $('btnLib').onclick = libOpen;
+  $('libPal').addEventListener('change', libFilter); $('libRec').addEventListener('change', libFilter);
+  $('libMore').onclick = libMore;
+  $('libGen').onclick = function () {
+    var btn = this; btn.disabled = true; $('libMsg').textContent = 'AI đang sáng tạo và kiểm tra mẫu mới…';
+    setTimeout(function () {
+      var fresh = libInvent(12); Array.prototype.unshift.apply(libAll(), fresh);
+      $('libPal').value = 'ai'; $('libRec').value = ''; libFilter(); btn.disabled = false;
+      $('libMsg').textContent = 'AI vừa sáng tạo ' + fresh.length + ' mẫu mới, đều đã giải mã thử thành công. Đang hiện ' + libN + ' trong ' + libView.length + ' mẫu AI.';
+    }, 30);
+  };
+  $('libGrid').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b || !b._t) return; var t = b._t;
+    LOOK.forEach(function (k) { S.d[k] = t.o[k]; });
+    save(); writeDesign(); render(); closeDlg($('dlgLib'));
+    toast('Đã áp dụng mẫu "' + t.n + '".' + (t.cap && !String(S.d.cap || '').trim() ? ' Nhập tiêu đề để hiện nhãn trên khung.' : ''));
+  });
 
   /* ---------- nền động: mạng lưới điểm kết nối trôi chậm (dừng khi ẩn trang, đứng yên nếu máy tắt hiệu ứng) ---------- */
   (function () {
@@ -1605,15 +1798,34 @@ return qrcode;
     window.__bgNet = { count: function () { return pts.length; }, running: function () { return !!raf; } };
   })();
 
-  /* ---------- cài như ứng dụng (khi chạy trên web https) ---------- */
+  /* ---------- cài lên màn hình chính / màn hình nền (khi chạy trên web https) ---------- */
   (function () {
     var deferred = null, top = false; try { top = window.top === window; } catch (e) {}
-    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; $('btnInstall').hidden = false; });
-    window.addEventListener('appinstalled', function () { deferred = null; $('btnInstall').hidden = true; });
-    $('btnInstall').onclick = function () { if (!deferred) return; deferred.prompt(); deferred.userChoice.then(function () { deferred = null; $('btnInstall').hidden = true; }, function () {}); };
-    if (top && (location.protocol === 'https:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname))) {
+    var web = top && (location.protocol === 'https:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname));
+    var alone = false; try { alone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; } catch (e) {}
+    var ua = navigator.userAgent || '', ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1), dev = ios ? 'ios' : /Android/i.test(ua) ? 'and' : 'pc';
+    function show(on) { $('btnInstall').hidden = !on; $('installBar').hidden = !on; }
+    function guide() {
+      Array.prototype.forEach.call(document.querySelectorAll('#insSteps [data-dev]'), function (el) { el.hidden = el.getAttribute('data-dev') !== dev; });
+      $('insGo').hidden = !deferred; $('insNote').hidden = !!deferred;
+      openDlg($('dlgInstall'));
+    }
+    function ask() {
+      if (!deferred) return guide();
+      var d = deferred; deferred = null; d.prompt();
+      d.userChoice.then(function (r) { if (r && r.outcome === 'accepted') closeDlg($('dlgInstall')); else deferred = d; }, function () {});
+    }
+    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; if (web && !alone) show(true); });
+    window.addEventListener('appinstalled', function () { deferred = null; show(false); closeDlg($('dlgInstall')); toast('Đã cài xong. Mở phần mềm từ biểu tượng trên màn hình chính hoặc màn hình nền.'); });
+    $('btnInstall').onclick = ask; $('btnInstall2').onclick = ask; $('insGo').onclick = ask;
+    $('btnInstallHow').onclick = guide;
+    if (web) {
       var l = document.createElement('link'); l.rel = 'manifest'; l.href = 'manifest.webmanifest'; document.head.appendChild(l);
       if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+      if (!alone) show(true);
+      /* trang chạy trên GitHub Pages: dẫn tới bản Windows trong mục Releases của chính kho đó */
+      var m = /^([a-z0-9-]+)\.github\.io$/i.exec(location.hostname), repo = location.pathname.split('/')[1];
+      if (m && repo) { $('insExe').href = 'https://github.com/' + m[1] + '/' + encodeURIComponent(repo) + '/releases/latest'; $('insExeBox').hidden = false; }
     }
   })();
 
@@ -1623,7 +1835,7 @@ return qrcode;
   /* init */
   $('ver').textContent = 'bản ' + VERSION + ':';
   writeFields(); writeDesign(); setType(S.t); setTab(S.tab); renderRec(); render();
-  window.__QR = { version: VERSION, logoPalette: logoPalette, shade: shade, contrast: contrast, content: content, build: build, paint: paint, presets: PRESETS, presetOpts: presetOpts, banks: BANKS, matrix: matrix, svg: svg, opts: opts, vietqr: vietqr, crc16: crc16, zip: zip, crc32: crc32, parseBatch: parseBatch, verify: verify, check: function () { return lastChk; }, state: S };  /* phục vụ kiểm thử */
+  window.__QR = { version: VERSION, lib: libAll, libInvent: libInvent, logoPalette: logoPalette, shade: shade, contrast: contrast, content: content, build: build, paint: paint, presets: PRESETS, presetOpts: presetOpts, banks: BANKS, matrix: matrix, svg: svg, opts: opts, vietqr: vietqr, crc16: crc16, zip: zip, crc32: crc32, parseBatch: parseBatch, verify: verify, check: function () { return lastChk; }, state: S };  /* phục vụ kiểm thử */
 })();
 </script>
 </body>
