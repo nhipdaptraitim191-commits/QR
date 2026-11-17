@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Phần mềm tạo mã quét QR chuyên nghiệp 2.9.1 · miễn phí, chạy hoàn toàn trên máy.
+  Phần mềm tạo mã quét QR chuyên nghiệp 2.9.4 · miễn phí, chạy hoàn toàn trên máy.
   Phần mềm được viết bởi Võ Hữu Ngợi - 0917010170.
   Thư viện đi kèm: QR Code Generator for JavaScript (Kazuhiko Arase, MIT), jsQR (Cosmo Wolfe, Apache-2.0),
   phông chữ Be Vietnam Pro (SIL Open Font License 1.1). Chi tiết trong THIRD-PARTY-NOTICES.md.
@@ -116,12 +116,19 @@ main{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:30px 24p
 .hero,.sec-content,.sec-design,.recent,.foot{grid-column:1;min-width:0}
 .hero{grid-row:1}.sec-content{grid-row:2}.sec-design{grid-row:3}.recent{grid-row:4}.foot{grid-row:5}
 .hero{color:var(--on-ground);padding:2px 2px 6px;--focus:var(--gold);text-shadow:0 1px 3px rgba(110,0,14,.45)}
-.hero h2{font-size:clamp(27px,3.5vw,44px);line-height:1.14;letter-spacing:-.03em}
-.hero h2 span{display:inline-block}
-.hero p{margin:12px 0 0;color:var(--on-ground-mute);font-size:15.5px;line-height:1.6;max-width:58ch;text-wrap:pretty}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
 .chips li{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--on-ground);border:1px solid var(--on-ground-line);background:var(--on-ground-fill);border-radius:999px;padding:5px 12px 5px 9px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .chips svg{width:15px;height:15px;flex:0 0 15px;color:var(--gold)}
+.ins-wait{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;background:var(--paper2);border:1px solid var(--line)}
+.ins-wait div{display:flex;flex-direction:column;gap:3px;font-size:13.5px;line-height:1.5;color:var(--mute)}
+.ins-wait b{color:var(--ink);font-size:14.5px}
+.spin{flex:0 0 28px;width:28px;height:28px;border-radius:50%;border:3px solid var(--line2);border-top-color:var(--accent);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ins-note{margin:0;font-size:14px;line-height:1.6;color:var(--ink)}
+.ins-man{border:1px solid var(--line);border-radius:14px;padding:0 16px}
+.ins-man summary{cursor:pointer;font-weight:700;font-size:14px;padding:13px 0;color:var(--accent-t)}
+.ins-man[open] summary{border-bottom:1px dashed var(--line2);margin-bottom:12px}
+.ins-man #insSteps{padding-bottom:14px}
 .steps h4{font-size:14.5px;margin:0 0 8px}
 .steps ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.6}
 .steps b{font-weight:700;color:var(--accent-t)}
@@ -382,8 +389,16 @@ dialog[open]{animation:dlg .2s ease-out}
 .drop.over i:nth-of-type(3),.drop:hover i:nth-of-type(3){left:6px;bottom:6px}
 .drop.over i:nth-of-type(4),.drop:hover i:nth-of-type(4){right:6px;bottom:6px}
 .drop b{color:var(--ink);font-weight:600}
+.drop .mini{display:none}
+.drop.small{padding:14px 16px;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;text-align:left}
+.drop.small>svg{width:22px;height:22px}
+.drop.small .full,.drop.small i{display:none}
+.drop.small .mini{display:inline}
 .prog{font-size:13px;color:var(--mute);min-height:20px}
 .prog:empty{display:none}
+.sprev{display:block;max-width:100%;height:auto;margin:0 auto;border-radius:12px;border:1px solid var(--line);background:#fff}
+.spick{display:flex;flex-wrap:wrap;gap:6px}
+.spick .btn.on{background:var(--accent);border-color:transparent;color:var(--on-accent)}
 .mono{font-family:var(--mono);font-size:13px}
 /* khung camera quét mã */
 .cam{position:relative;border-radius:16px;overflow:hidden;background:#0b0102;aspect-ratio:4/3;max-height:54vh;width:100%}
@@ -406,7 +421,7 @@ dialog[open]{animation:dlg .2s ease-out}
 .foot p{margin:0;text-wrap:balance}
 .foot,.recent{text-shadow:0 1px 2px rgba(90,0,12,.4)}
 .foot b{color:var(--on-ground);font-weight:600}
-.foot .by{margin-top:8px;color:var(--on-ground);font-size:13.5px}
+.foot .by{color:var(--on-ground);font-size:13.5px}
 
 #printBox{display:none}
 /* mã QR toàn màn hình: nền trắng để máy quét bắt nét dễ nhất */
@@ -474,8 +489,6 @@ dialog[open]{animation:dlg .2s ease-out}
   .pad{padding:16px}
   .row{grid-template-columns:1fr}
   .ck.inrow{align-self:auto}
-  .hero h2{font-size:27px}
-  .hero p{font-size:14.5px}
   .types button{font-size:12px;padding:11px 2px 8px;min-height:70px}
   .tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
   .tabs button{grid-column:span 2;padding-inline:4px}
@@ -521,8 +534,6 @@ dialog[open]{animation:dlg .2s ease-out}
     <!-- LEFT -->
     <div class="left">
       <div class="hero">
-        <h2><span>Tạo mã QR chuyên nghiệp</span> <span>trong vài giây</span></h2>
-        <p>Nhập nội dung, chọn thiết kế, rồi tải ảnh PNG độ phân giải cao hoặc SVG vector. Không quảng cáo, không gửi dữ liệu ra ngoài.</p>
         <ul class="chips">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Trợ lý AI trên máy</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M4 12h16"/></svg>Quét mã bằng camera</li>
@@ -751,8 +762,6 @@ dialog[open]{animation:dlg .2s ease-out}
     </div>
 
     <footer class="foot">
-      <p><b>Phần mềm tạo mã quét QR chuyên nghiệp</b> <span id="ver"></span> miễn phí, không quảng cáo, không thu thập dữ liệu. Mọi thứ được xử lý ngay trên máy của bạn.</p>
-      <p>Mã QR tạo ra là mã tĩnh, dùng lâu dài, không hết hạn. Nên quét thử bằng điện thoại trước khi in.</p>
       <p class="by">Phần mềm được viết bởi <b>Võ Hữu Ngợi</b> - 0917010170</p>
     </footer>
   </div>
@@ -793,10 +802,12 @@ dialog[open]{animation:dlg .2s ease-out}
 <!-- Quét mã QR: camera hoặc ảnh -->
 <dialog id="dlgInstall" aria-labelledby="dlgInstallH">
   <div class="dg">
-    <div class="dg-h"><div class="dg-t"><h3 id="dlgInstallH">Tạo lối tắt trên màn hình chính</h3><p>Lối tắt là biểu tượng của phần mềm trên màn hình chính hoặc màn hình nền, bấm vào là mở ngay. Không tải file cài đặt nào về máy, xoá lối tắt lúc nào cũng được.</p></div>
+    <div class="dg-h"><div class="dg-t"><h3 id="dlgInstallH">Tạo lối tắt trên màn hình chính</h3><p>Lối tắt là biểu tượng của phần mềm trên màn hình chính hoặc màn hình nền, bấm vào là mở ngay. Không tải file nào về máy.</p></div>
       <button class="x" type="button" data-close aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-    <button class="btn primary" id="insGo" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Tạo lối tắt trên máy này</button>
-    <p class="hint" id="insNote">Trình duyệt này không cho phần mềm tự tạo lối tắt. Bạn làm theo các bước dưới đây, chỉ mất khoảng 10 giây.</p>
+    <div class="ins-wait" id="insWait" role="status" hidden><span class="spin" aria-hidden="true"></span><div><b>Trình duyệt đang chuẩn bị tạo lối tắt…</b><span>Thường mất dưới nửa phút. Khi xong, nút "Tạo lối tắt ngay" sẽ hiện ở đây.</span></div></div>
+    <button class="btn primary" id="insGo" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Tạo lối tắt ngay</button>
+    <p class="ins-note" id="insNote" hidden></p>
+    <details class="ins-man" id="insMan"><summary>Tự tạo bằng menu của trình duyệt</summary>
     <div id="insSteps">
       <div class="steps" data-dev="pc">
         <h4>Trên máy tính</h4>
@@ -824,6 +835,7 @@ dialog[open]{animation:dlg .2s ease-out}
         </ol>
       </div>
     </div>
+    </details>
   </div>
 </dialog>
 
@@ -837,9 +849,11 @@ dialog[open]{animation:dlg .2s ease-out}
       <i></i><i></i><i></i><i></i><span class="beam"></span>
       <div class="cam-act"><button class="btn sm" id="sCamSw" type="button" hidden>Đổi camera</button><button class="btn sm" id="sCamStop" type="button">Dừng camera</button></div>
     </div>
-    <div class="drop" id="sDrop" tabindex="0" role="button"><i></i><i></i><i></i><i></i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3 3-2.5 4.5 4"/></svg><span><b>Bấm để chọn ảnh</b>, kéo thả ảnh vào đây,<br>hoặc dán ảnh bằng Ctrl+V</span></div>
+    <div class="drop" id="sDrop" tabindex="0" role="button"><i></i><i></i><i></i><i></i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3 3-2.5 4.5 4"/></svg><span class="full"><b>Bấm để chọn ảnh</b>, kéo thả ảnh vào đây,<br>hoặc dán ảnh bằng Ctrl+V. Đọc được cả ảnh chụp, ảnh tài liệu và ảnh có nhiều mã.</span><span class="mini"><b>Chọn ảnh khác</b>, kéo thả hoặc dán bằng Ctrl+V</span></div>
     <input type="file" id="sFile" accept="image/*" hidden>
-    <div class="prog" id="sMsg"></div>
+    <div class="prog" id="sMsg" role="status"></div>
+    <canvas id="sPrev" class="sprev" hidden aria-label="Ảnh vừa đọc, mã QR tìm thấy được đóng khung"></canvas>
+    <div class="spick" id="sPick" hidden></div>
     <textarea id="sOut" rows="5" readonly hidden class="mono"></textarea>
     <div class="row acts" id="sAct" hidden>
       <button class="btn" id="sCopy" type="button">Sao chép nội dung</button>
@@ -866,7 +880,7 @@ return qrcode;
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
-  var VERSION = '2.9.1';
+  var VERSION = '2.9.4';
   var KEY = 'qr-studio-v1';
   var DEF = { fg: '#15171c', bg: '#ffffff', tr: false, dot: 'sq', eye: 'sq', ec: 'M', mg: 4, size: '1024',
     gm: '', g2: '#c1121f', ga: 135, em: false, eo: '#15171c', ei: '#c1121f', fr: 'none', fc: '#c1121f' };
@@ -1405,7 +1419,7 @@ return qrcode;
     var s = Math.min(1, 800 / Math.max(w, h)); camCv.width = Math.round(w * s); camCv.height = Math.round(h * s);
     var x = camCv.getContext('2d', { willReadFrequently: true }); x.drawImage(v, 0, 0, camCv.width, camCv.height);
     var id = x.getImageData(0, 0, camCv.width, camCv.height), res = null;
-    try { res = jsQR(id.data, id.width, id.height, { inversionAttempts: cam.n++ % 4 === 3 ? 'attemptBoth' : 'dontInvert' }); } catch (e) { res = null; }
+    var k = cam.n++ % 4; res = qrTry(id, k === 1 ? 'st' : k === 2 ? 'min' : 'raw', k === 3);
     var txt = res ? resText(res) : ''; if (!txt) return;
     camStop(); try { if (navigator.vibrate) navigator.vibrate(80); } catch (e) {}
     showScan(txt, 'Đã quét được. Nội dung trong mã:');
@@ -1413,7 +1427,7 @@ return qrcode;
   function camStart(deviceId) {
     var msg = $('sMsg'); $('sOut').hidden = true; $('sAct').hidden = true;
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg.textContent = 'Ở đây trình duyệt không cho dùng camera. Hãy mở phần mềm bằng địa chỉ web (https) hoặc bản Windows, hoặc chọn ảnh có mã QR bên dưới.'; return; }
-    camStop(); msg.textContent = 'Đang mở camera…';
+    camStop(); if (typeof scanReset === 'function') scanReset(); msg.textContent = 'Đang mở camera…';
     var want = { audio: false, video: deviceId ? { deviceId: { exact: deviceId } } : { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } } };
     navigator.mediaDevices.getUserMedia(want).then(function (st) {
       if (!$('dlgScan').open) { st.getTracks().forEach(function (t) { t.stop(); }); return; }
@@ -1435,43 +1449,178 @@ return qrcode;
   $('dlgScan').addEventListener('close', camStop);
   document.addEventListener('visibilitychange', function () { if (document.hidden && cam.stream) { camStop(); $('sMsg').textContent = 'Camera đã tắt khi bạn rời trang. Bấm quét lại để tiếp tục.'; } });
 
-  /* ---------- đọc mã từ ảnh ---------- */
-  function decodeImage(im) {
-    var w0 = im.naturalWidth || im.width, h0 = im.naturalHeight || im.height, m = Math.max(w0, h0, 1), res = null, seen = {};
-    [Math.min(1, 1400 / m), Math.min(1, 800 / m), Math.min(2, 2200 / m)].forEach(function (s) {
-      var key = s.toFixed(3); if (res || seen[key]) return; seen[key] = 1;
-      var pad = 24, cv = document.createElement('canvas'), w = Math.max(1, Math.round(w0 * s)), h = Math.max(1, Math.round(h0 * s));
-      cv.width = w + 2 * pad; cv.height = h + 2 * pad; var x = cv.getContext('2d', { willReadFrequently: true }); x.fillStyle = '#fff'; x.fillRect(0, 0, cv.width, cv.height); x.drawImage(im, pad, pad, w, h);
-      var id = x.getImageData(0, 0, cv.width, cv.height);
-      try { res = jsQR(id.data, id.width, id.height, { inversionAttempts: 'attemptBoth' }); } catch (e) { res = null; }
+  /* ---------- đọc mã từ ảnh ----------
+     Thử lần lượt nhiều cách cho tới khi đọc được: nhiều cỡ ảnh, tăng tương phản (ảnh mờ nhạt, chói),
+     nối các chấm rời (mã kiểu chấm, chữ thập, sọc), làm mịn (ảnh nhiễu, rung tay), chia ảnh thành ô
+     (mã nhỏ trong ảnh chụp, tài liệu, ảnh có nhiều mã). Chạy từng bước nhỏ để máy không bị đơ. */
+  var scan = { job: 0, list: [], src: null, W: 0, H: 0, url: '', pick: 0 };
+  function gray(d, n) { var g = new Uint8ClampedArray(n); for (var i = 0, j = 0; i < n; i++, j += 4) g[i] = (d[j] * 77 + d[j + 1] * 150 + d[j + 2] * 29) >> 8; return g; }
+  function stretch(g) {
+    var hist = new Uint32Array(256), n = g.length, i, c = 0, lo = 0, hi = 255, cut = n * 0.01;
+    for (i = 0; i < n; i++) hist[g[i]]++;
+    for (i = 0; i < 256; i++) { c += hist[i]; if (c > cut) { lo = i; break; } }
+    for (c = 0, i = 255; i >= 0; i--) { c += hist[i]; if (c > cut) { hi = i; break; } }
+    if (hi - lo < 12) return g; var k = 255 / (hi - lo), o = new Uint8ClampedArray(n);
+    for (i = 0; i < n; i++) o[i] = (g[i] - lo) * k;
+    return o;
+  }
+  function minf(g, w, h, r) {
+    var t = new Uint8ClampedArray(g.length), o = new Uint8ClampedArray(g.length), x, y, k, m, a, b;
+    for (y = 0; y < h; y++) for (x = 0; x < w; x++) { m = 255; a = Math.max(0, x - r); b = Math.min(w - 1, x + r); for (k = a; k <= b; k++) if (g[y * w + k] < m) m = g[y * w + k]; t[y * w + x] = m; }
+    for (y = 0; y < h; y++) for (x = 0; x < w; x++) { m = 255; a = Math.max(0, y - r); b = Math.min(h - 1, y + r); for (k = a; k <= b; k++) if (t[k * w + x] < m) m = t[k * w + x]; o[y * w + x] = m; }
+    return o;
+  }
+  function blur(g, w, h, r) {
+    var t = new Float32Array(g.length), o = new Uint8ClampedArray(g.length), x, y, k, s, c;
+    for (y = 0; y < h; y++) for (x = 0; x < w; x++) { s = 0; c = 0; for (k = Math.max(0, x - r); k <= Math.min(w - 1, x + r); k++) { s += g[y * w + k]; c++; } t[y * w + x] = s / c; }
+    for (y = 0; y < h; y++) for (x = 0; x < w; x++) { s = 0; c = 0; for (k = Math.max(0, y - r); k <= Math.min(h - 1, y + r); k++) { s += t[k * w + x]; c++; } o[y * w + x] = s / c; }
+    return o;
+  }
+  /* áp một cách xử lý lên ảnh (dữ liệu RGBA) rồi giải mã */
+  function qrTry(id, mode, inv) {
+    var n = id.width * id.height, d = id.data, res = null;
+    if (mode && mode !== 'raw') {
+      var g = gray(d, n);
+      if (mode === 'min') g = minf(g, id.width, id.height, 1); else if (mode === 'blur') g = blur(g, id.width, id.height, 2);
+      g = stretch(g);
+      for (var i = 0, j = 0; i < n; i++, j += 4) { d[j] = d[j + 1] = d[j + 2] = g[i]; d[j + 3] = 255; }
+    }
+    try { res = jsQR(d, id.width, id.height, { inversionAttempts: inv ? 'attemptBoth' : 'dontInvert' }); } catch (e) { res = null; }
+    return res;
+  }
+  function scanCands(W, H) {
+    var M = Math.max(W, H), F = [0, 0, 1, 1], C = [], i, j;
+    function add(r, D, m, inv, tile) { C.push({ r: r, D: Math.max(60, Math.round(D)), m: m, inv: !!inv, tile: !!tile }); }
+    add(F, Math.min(M, 1000), 'raw', true); add(F, Math.min(M, 1000), 'st', true);
+    add(F, 600, 'st'); add(F, 420, 'min'); add(F, 300, 'min'); add(F, 640, 'blur'); add(F, 220, 'min');
+    if (M > 1100) { add(F, Math.min(M, 1800), 'raw'); add(F, Math.min(M, 1800), 'st'); }
+    if (M < 600) { add(F, M * 2.5, 'st'); add(F, M * 2, 'blur'); add(F, M * 3, 'raw', true); }
+    if (M >= 700) {
+      for (i = 0; i < 3; i++) for (j = 0; j < 3; j++) add([j * 0.25, i * 0.25, 0.5, 0.5], 900, 'st', false, true);
+      add([0.2, 0.2, 0.6, 0.6], 900, 'st', false, true);
+      for (i = 0; i < 3; i++) for (j = 0; j < 3; j++) add([j * 0.25, i * 0.25, 0.5, 0.5], 420, 'min', false, true);
+      /* ảnh rất lớn: dò thêm từng ô ở gần độ phân giải gốc để bắt mã dày chụp từ xa */
+      if (M >= 1800) for (i = 0; i < 3; i++) for (j = 0; j < 3; j++) add([j * 0.25, i * 0.25, 0.5, 0.5], Math.min(M / 2, 1600), 'st', false, true);
+    }
+    return C;
+  }
+  function scanCand(src, W, H, c) {
+    var r = c.r, sx = r[0] * W, sy = r[1] * H, sw = r[2] * W, sh = r[3] * H, s = Math.min(c.D / Math.max(sw, sh), 3);
+    var w = Math.max(1, Math.round(sw * s)), h = Math.max(1, Math.round(sh * s)), pad = Math.max(12, Math.round(Math.max(w, h) * 0.05));
+    var cv = scan.cv || (scan.cv = document.createElement('canvas')); cv.width = w + 2 * pad; cv.height = h + 2 * pad;
+    var x = cv.getContext('2d', { willReadFrequently: true }); x.fillStyle = '#fff'; x.fillRect(0, 0, cv.width, cv.height);
+    x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high'; x.drawImage(src, sx, sy, sw, sh, pad, pad, w, h);
+    var res = qrTry(x.getImageData(0, 0, cv.width, cv.height), c.m, c.inv), txt = res ? resText(res) : '';
+    if (!txt) return null;
+    var L = res.location, pt = function (p) { return { x: (p.x - pad) / s + sx, y: (p.y - pad) / s + sy }; };
+    return { text: txt, poly: [pt(L.topLeftCorner), pt(L.topRightCorner), pt(L.bottomRightCorner), pt(L.bottomLeftCorner)] };
+  }
+  function polyArea(p) { var a = 0; for (var i = 0; i < p.length; i++) { var q = p[(i + 1) % p.length]; a += p[i].x * q.y - q.x * p[i].y; } return Math.abs(a) / 2; }
+  function scanRun(src, W, H, job, update, done) {
+    var C = scanCands(W, H), i = 0, found = [], t0 = Date.now(), firstAt = 0;
+    function step() {
+      if (job !== scan.job) return;
+      var until = Date.now() + 50;
+      while (i < C.length && Date.now() < until) {
+        var c = C[i++]; if (found.length && !c.tile) continue;
+        var r = null; try { r = scanCand(src, W, H, c); } catch (e) {}
+        if (r && !found.some(function (f) { return f.text === r.text; })) {
+          found.push(r); update(found.slice());
+          /* mã chiếm phần lớn ảnh thì không thể còn mã khác: dừng luôn */
+          if (!firstAt) { firstAt = Date.now(); if (polyArea(r.poly) > 0.2 * W * H) i = C.length; }
+        }
+      }
+      var now = Date.now();
+      if (i >= C.length || now - t0 > 7000 || (firstAt && now - firstAt > 1500)) { scan.busy = false; return done(found); }
+      setTimeout(step, 0);
+    }
+    setTimeout(step, 0);
+  }
+  /* trình duyệt có sẵn bộ đọc mã (Android, macOS…) thì dùng thêm khi cách trên chưa đọc được */
+  function scanNative(src) {
+    if (!('BarcodeDetector' in window)) return Promise.resolve([]);
+    try {
+      return new window.BarcodeDetector({ formats: ['qr_code'] }).detect(src).then(function (l) {
+        return (l || []).filter(function (b) { return b.rawValue; }).map(function (b) { return { text: b.rawValue, poly: (b.cornerPoints || []).map(function (p) { return { x: p.x, y: p.y }; }) }; });
+      }, function () { return []; });
+    } catch (e) { return Promise.resolve([]); }
+  }
+  function scanPrev() {
+    var cv = $('sPrev'), src = scan.src; if (!src) { cv.hidden = true; return; }
+    var W = scan.W, H = scan.H, dpr = window.devicePixelRatio || 1, s = Math.min(1, 560 / W, 300 / H);
+    cv.width = Math.max(1, Math.round(W * s * dpr)); cv.height = Math.max(1, Math.round(H * s * dpr)); cv.style.width = Math.round(W * s) + 'px';
+    var x = cv.getContext('2d'); x.setTransform(s * dpr, 0, 0, s * dpr, 0, 0); x.fillStyle = '#fff'; x.fillRect(0, 0, W, H); x.drawImage(src, 0, 0, W, H);
+    scan.list.forEach(function (r, k) {
+      if (r.poly.length < 4) return; var on = k === scan.pick, lw = Math.max(2, 3 / s);
+      x.beginPath(); r.poly.forEach(function (p, j) { j ? x.lineTo(p.x, p.y) : x.moveTo(p.x, p.y); }); x.closePath();
+      x.lineJoin = 'round'; x.lineWidth = lw * 2.2; x.strokeStyle = 'rgba(255,255,255,.9)'; x.stroke(); x.lineWidth = lw; x.strokeStyle = on ? '#16a34a' : '#f59e0b'; x.stroke();
+      if (scan.list.length > 1) { var p = r.poly[0], fs = Math.max(14, 16 / s); x.font = '800 ' + fs + 'px "Be Vietnam Pro", sans-serif'; x.fillStyle = on ? '#16a34a' : '#f59e0b'; x.beginPath(); x.arc(p.x, p.y, fs * 0.9, 0, 7); x.fill(); x.fillStyle = '#fff'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(String(k + 1), p.x, p.y + fs * 0.05); }
     });
-    if (!res) return null;
-    return resText(res);
+    cv.hidden = false;
+  }
+  function scanShow(k) {
+    scan.pick = k; var n = scan.list.length;
+    showScan(scan.list[k].text, n > 1 ? 'Tìm thấy ' + n + ' mã QR trong ảnh. Đang xem mã số ' + (k + 1) + ':' : 'Nội dung trong mã:');
+    var pk = $('sPick'); pk.innerHTML = ''; pk.hidden = n < 2;
+    if (n > 1) scan.list.forEach(function (r, j) { var b = document.createElement('button'); b.type = 'button'; b.className = 'btn sm' + (j === k ? ' on' : ''); b.textContent = 'Mã ' + (j + 1); b.setAttribute('aria-pressed', j === k ? 'true' : 'false'); b.onclick = function () { scanShow(j); }; pk.appendChild(b); });
+    scanPrev();
+    if (!scan.shown) { scan.shown = true; try { $('sAct').scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (e) {} }
+  }
+  function scanReset() {
+    scan.job++; if (scan.url) { URL.revokeObjectURL(scan.url); scan.url = ''; }
+    if (scan.src && scan.src.close) try { scan.src.close(); } catch (e) {}
+    scan.src = null; scan.list = []; scan.pick = 0; scan.busy = false; scan.shown = false; $('sPrev').hidden = true; $('sPick').hidden = true; $('sOut').hidden = true; $('sAct').hidden = true;
   }
   function scanFile(f) {
-    var msg = $('sMsg'), out = $('sOut'), act = $('sAct');
-    if (!f || !/^image\//.test(f.type)) { msg.textContent = 'Hãy chọn một file ảnh (PNG, JPG…).'; return; }
-    msg.textContent = 'Đang đọc ảnh…'; out.hidden = true; act.hidden = true;
-    var url = URL.createObjectURL(f), im = new Image();
-    im.onload = function () {
-      var txt = typeof jsQR === 'function' ? decodeImage(im) : null; URL.revokeObjectURL(url);
-      if (txt == null || txt === '') { msg.textContent = 'Không tìm thấy mã QR trong ảnh này. Hãy thử ảnh rõ hơn, chụp thẳng và đủ sáng.'; return; }
-      showScan(txt, 'Nội dung trong mã:');
-    };
-    im.onerror = function () { URL.revokeObjectURL(url); msg.textContent = 'Không mở được ảnh này, hãy thử ảnh khác.'; };
-    im.src = url;
+    var msg = $('sMsg'), name = String(f && f.name || '').toLowerCase(), type = String(f && f.type || '').toLowerCase();
+    camStop(); scanReset();
+    if (!f) return;
+    if (/pdf/.test(type) || /\.pdf$/.test(name)) { msg.textContent = 'File PDF chưa đọc trực tiếp được. Hãy mở file PDF, chụp màn hình phần có mã QR (phím Windows + Shift + S), rồi dán vào đây bằng Ctrl+V.'; return; }
+    var heic = /hei[cf]/.test(type) || /\.hei[cf]$/.test(name);
+    if (type && !/^image\//.test(type)) { msg.textContent = 'Đây không phải file ảnh. Hãy chọn ảnh PNG, JPG hoặc WEBP có mã QR.'; return; }
+    if (typeof jsQR !== 'function') { msg.textContent = 'Không đọc được ảnh lúc này, hãy tải lại trang rồi thử lại.'; return; }
+    msg.textContent = 'Đang tìm mã QR trong ảnh…'; $('sDrop').classList.add('small');
+    var job = scan.job;
+    function bad() { if (job !== scan.job) return; msg.textContent = heic ? 'Ảnh HEIC của iPhone chưa mở được trên trình duyệt này. Hãy chụp màn hình ảnh đó rồi dán vào đây bằng Ctrl+V, hoặc đổi ảnh sang JPG.' : 'Không mở được ảnh này. Hãy thử ảnh khác, hoặc chụp màn hình phần có mã rồi dán vào đây bằng Ctrl+V.'; }
+    function go(src, W, H, url) {
+      if (job !== scan.job) { if (url) URL.revokeObjectURL(url); return; }
+      scan.src = src; scan.W = W; scan.H = H; scan.url = url || '';
+      if (!W || !H) return bad();
+      scan.busy = true;
+      /* đọc được mã đầu tiên là hiện ngay; phần mềm vẫn dò tiếp ít giây để tìm thêm mã khác trong cùng ảnh */
+      scanRun(src, W, H, job, function (list) { if (job !== scan.job) return; scan.list = list; scanShow(Math.min(scan.pick, list.length - 1)); }, function (list) {
+        if (job !== scan.job || list.length) return;
+        scan.busy = true;
+        scanNative(src).then(function (l) { return l; }, function () { return []; }).then(function (l) {
+          scan.busy = false; if (job !== scan.job) return;
+          scan.list = l;
+          if (!l.length) { scanPrev(); msg.textContent = 'Không tìm thấy mã QR trong ảnh này. Hãy thử: cắt ảnh sát vùng có mã, chụp thẳng và đủ sáng, hoặc chụp màn hình phần có mã rồi dán vào đây bằng Ctrl+V.'; return; }
+          scanShow(0);
+        });
+      });
+    }
+    function viaImg() { var url = URL.createObjectURL(f), im = new Image(); im.onload = function () { go(im, im.naturalWidth, im.naturalHeight, url); }; im.onerror = function () { URL.revokeObjectURL(url); bad(); }; im.src = url; }
+    if (window.createImageBitmap) createImageBitmap(f).then(function (bm) { go(bm, bm.width, bm.height); }, viaImg); else viaImg();
   }
-  $('btnScan').onclick = function () { camStop(); $('sMsg').textContent = ''; $('sOut').hidden = true; $('sAct').hidden = true; openDlg($('dlgScan')); };
+  $('btnScan').onclick = function () { camStop(); scanReset(); $('sDrop').classList.remove('small'); $('sMsg').textContent = ''; openDlg($('dlgScan')); };
   $('sDrop').onclick = function () { $('sFile').click(); };
   $('sDrop').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('sFile').click(); } });
   $('sFile').addEventListener('change', function () { var f = this.files && this.files[0]; this.value = ''; if (f) scanFile(f); });
-  ['dragenter', 'dragover'].forEach(function (ev) { $('sDrop').addEventListener(ev, function (e) { e.preventDefault(); $('sDrop').classList.add('over'); }); });
-  ['dragleave', 'drop'].forEach(function (ev) { $('sDrop').addEventListener(ev, function (e) { e.preventDefault(); $('sDrop').classList.remove('over'); }); });
-  $('sDrop').addEventListener('drop', function (e) { var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if (f) scanFile(f); });
+  function hasFiles(e) { var t = e.dataTransfer && e.dataTransfer.types; return !!t && Array.prototype.indexOf.call(t, 'Files') >= 0; }
+  /* thả ảnh vào bất kỳ đâu trong bảng quét đều đọc được; thả ra ngoài thì mở bảng quét thay vì để trình duyệt mở ảnh và rời phần mềm */
+  ['dragenter', 'dragover'].forEach(function (ev) { document.addEventListener(ev, function (e) { if (!hasFiles(e)) return; e.preventDefault(); if ($('dlgScan').open) $('sDrop').classList.add('over'); }); });
+  document.addEventListener('dragleave', function (e) { if (!e.relatedTarget) $('sDrop').classList.remove('over'); });
+  document.addEventListener('drop', function (e) {
+    if (!hasFiles(e)) return; e.preventDefault(); $('sDrop').classList.remove('over');
+    var f = e.dataTransfer.files[0]; if (!f) return;
+    if (!$('dlgScan').open) { if (document.querySelector('dialog[open]')) return; $('sMsg').textContent = ''; $('sDrop').classList.remove('small'); openDlg($('dlgScan')); }
+    scanFile(f);
+  });
   document.addEventListener('paste', function (e) {
     if (!$('dlgScan').open) return; var items = (e.clipboardData && e.clipboardData.items) || [], i;
     for (i = 0; i < items.length; i++) if (/^image\//.test(items[i].type)) { e.preventDefault(); scanFile(items[i].getAsFile()); return; }
   });
+  $('dlgScan').addEventListener('close', function () { scan.job++; });
   $('sCopy').onclick = function () {
     var v = $('sOut').value, done = function () { toast('Đã sao chép nội dung.'); }, old = function () { $('sOut').select(); try { document.execCommand('copy'); done(); } catch (e) { toast('Không sao chép được, hãy bôi đen và nhấn Ctrl+C.'); } };
     try { navigator.clipboard.writeText(v).then(done, old); } catch (e) { old(); }
@@ -1778,26 +1927,53 @@ return qrcode;
     window.__bgNet = { count: function () { return pts.length; }, running: function () { return !!raf; } };
   })();
 
-  /* ---------- tạo lối tắt trên màn hình chính / màn hình nền (khi chạy trên web https) ---------- */
+  /* ---------- tạo lối tắt trên màn hình chính / màn hình nền (khi chạy trên web https) ----------
+     Trình duyệt chỉ cho tạo lối tắt bằng một lần bấm khi nó đã sẵn sàng (sự kiện beforeinstallprompt).
+     Sẵn sàng thì bấm nút là hiện ngay bảng tạo lối tắt; chưa sẵn sàng thì chờ rồi đưa ra nút "Tạo lối tắt ngay". */
+  var insTune = function () {};
   (function () {
-    var deferred = null, top = false; try { top = window.top === window; } catch (e) {}
+    var deferred = null, top = false, waitT = 0, insMs = 0; try { top = window.top === window; } catch (e) {}
     var web = top && (location.protocol === 'https:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname));
     var alone = false; try { alone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; } catch (e) {}
     var ua = navigator.userAgent || '', ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1), dev = ios ? 'ios' : /Android/i.test(ua) ? 'and' : 'pc';
+    var oneClick = 'onbeforeinstallprompt' in window && dev !== 'ios';
+    var NOTE = {
+      ios: 'Trên iPhone, iPad, lối tắt được tạo bằng nút Chia sẻ của Safari, chỉ mất vài giây:',
+      and: 'Trình duyệt này không tạo lối tắt bằng một lần bấm. Bạn làm theo các bước dưới đây, chỉ mất vài giây.',
+      pc: 'Trình duyệt này không tạo lối tắt bằng một lần bấm. Bạn làm theo các bước dưới đây, hoặc mở trang bằng Chrome hay Edge.',
+      late: 'Trình duyệt chưa cho tạo lối tắt bằng một lần bấm. Có thể máy này đã có lối tắt của phần mềm; nếu chưa có, bạn làm theo các bước dưới đây.'
+    };
+    insTune = function (ms) { insMs = ms; };
     function show(on) { $('btnInstall').hidden = !on; }
+    function stage(s, note) {
+      clearTimeout(waitT);
+      $('insWait').hidden = s !== 'wait'; $('insGo').hidden = s !== 'ready';
+      $('insNote').hidden = !note; $('insNote').textContent = note || '';
+      $('insMan').open = s === 'manual';
+    }
     function guide() {
       Array.prototype.forEach.call(document.querySelectorAll('#insSteps [data-dev]'), function (el) { el.hidden = el.getAttribute('data-dev') !== dev; });
-      $('insGo').hidden = !deferred; $('insNote').hidden = !!deferred;
-      openDlg($('dlgInstall'));
+      if (oneClick) {
+        stage('wait');
+        waitT = setTimeout(function () { stage('manual', NOTE.late); }, insMs || Math.min(45000, Math.max(0, 30000 - performance.now()) + 8000));
+      } else stage('manual', NOTE[dev]);
+      if (!$('dlgInstall').open) openDlg($('dlgInstall'));
     }
-    function ask() {
-      if (!deferred) return guide();
-      var d = deferred; deferred = null; d.prompt();
-      d.userChoice.then(function (r) { if (r && r.outcome === 'accepted') closeDlg($('dlgInstall')); else deferred = d; }, function () {});
+    function prompt() {
+      var d = deferred; if (!d) return guide();
+      closeDlg($('dlgInstall'));
+      var r; try { r = d.prompt(); } catch (e) { deferred = null; return guide(); }
+      if (r && r.catch) r.catch(function () { deferred = null; guide(); });
+      if (d.userChoice) d.userChoice.then(function (c) { if (!(c && c.outcome === 'accepted')) toast('Chưa tạo lối tắt. Khi cần, bấm lại nút "Tạo lối tắt" ở thanh trên.'); }, function () {});
     }
-    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; if (web && !alone) show(true); $('insGo').hidden = false; $('insNote').hidden = true; });
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault(); deferred = e; if (web && !alone) show(true);
+      if ($('dlgInstall').open) { var act = navigator.userActivation; if (act && act.isActive) prompt(); else stage('ready'); }
+    });
     window.addEventListener('appinstalled', function () { deferred = null; show(false); closeDlg($('dlgInstall')); toast('Đã tạo lối tắt. Mở phần mềm từ biểu tượng trên màn hình chính hoặc màn hình nền.'); });
-    $('btnInstall').onclick = ask; $('insGo').onclick = ask;
+    $('btnInstall').onclick = function () { if (deferred) prompt(); else guide(); };
+    $('insGo').onclick = prompt;
+    $('dlgInstall').addEventListener('close', function () { clearTimeout(waitT); });
     if (web) {
       var l = document.createElement('link'); l.rel = 'manifest'; l.href = 'manifest.webmanifest'; document.head.appendChild(l);
       if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
@@ -1809,9 +1985,9 @@ return qrcode;
   window.addEventListener('beforeunload', function () { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} });
 
   /* init */
-  $('ver').textContent = 'bản ' + VERSION + ':';
+  document.querySelector('.foot .by').title = 'Bản ' + VERSION;
   writeFields(); writeDesign(); setType(S.t); setTab(S.tab); renderRec(); render();
-  window.__QR = { version: VERSION, lib: libAll, libInvent: libInvent, logoPalette: logoPalette, shade: shade, contrast: contrast, content: content, build: build, paint: paint, presets: PRESETS, presetOpts: presetOpts, banks: BANKS, matrix: matrix, svg: svg, opts: opts, vietqr: vietqr, crc16: crc16, zip: zip, crc32: crc32, parseBatch: parseBatch, verify: verify, check: function () { return lastChk; }, state: S };  /* phục vụ kiểm thử */
+  window.__QR = { version: VERSION, scanList: function () { return scan.list.map(function (r) { return r.text; }); }, scanBusy: function () { return !!scan.busy; }, insTimeout: function (ms) { insTune(ms); }, lib: libAll, libInvent: libInvent, logoPalette: logoPalette, shade: shade, contrast: contrast, content: content, build: build, paint: paint, presets: PRESETS, presetOpts: presetOpts, banks: BANKS, matrix: matrix, svg: svg, opts: opts, vietqr: vietqr, crc16: crc16, zip: zip, crc32: crc32, parseBatch: parseBatch, verify: verify, check: function () { return lastChk; }, state: S };  /* phục vụ kiểm thử */
 })();
 </script>
 </body>
