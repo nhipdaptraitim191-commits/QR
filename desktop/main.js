@@ -78,12 +78,19 @@ if (!app.requestSingleInstanceLock()) {
       if (u.host !== 'qrstudio' || !ALLOWED.has(rel)) return new Response('Not found', { status: 404 });
       return net.fetch(pathToFileURL(path.join(ROOT, rel)).toString());
     });
-    // Ứng dụng chỉ cần hai quyền: ghi ảnh vào bộ nhớ tạm (nút "Sao chép") và toàn màn hình; mọi quyền khác đều từ chối.
+    // Ứng dụng chỉ cần ba quyền: ghi ảnh vào bộ nhớ tạm (nút "Sao chép"), toàn màn hình, và camera để quét mã QR
+    // (chỉ hình, không thu tiếng). Mọi quyền khác đều từ chối.
     const ALLOWED_PERMISSIONS = new Set(['clipboard-sanitized-write', 'fullscreen']);
-    session.defaultSession.setPermissionRequestHandler((wc, permission, callback) => {
-      callback(ALLOWED_PERMISSIONS.has(permission));
+    const cameraOnly = (details) => {
+      const types = (details && details.mediaTypes) || (details && details.mediaType ? [details.mediaType] : []);
+      return types.length > 0 && types.every((t) => t === 'video');
+    };
+    session.defaultSession.setPermissionRequestHandler((wc, permission, callback, details) => {
+      callback(ALLOWED_PERMISSIONS.has(permission) || (permission === 'media' && cameraOnly(details)));
     });
-    session.defaultSession.setPermissionCheckHandler((wc, permission) => ALLOWED_PERMISSIONS.has(permission));
+    session.defaultSession.setPermissionCheckHandler((wc, permission, origin, details) => {
+      return ALLOWED_PERMISSIONS.has(permission) || (permission === 'media' && cameraOnly(details));
+    });
     Menu.setApplicationMenu(buildMenu());
     createWindow();
     app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });

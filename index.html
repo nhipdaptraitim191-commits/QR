@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Phần mềm tạo mã quét QR chuyên nghiệp 2.4.0 · miễn phí, chạy hoàn toàn trên máy.
+  Phần mềm tạo mã quét QR chuyên nghiệp 2.6.0 · miễn phí, chạy hoàn toàn trên máy.
   Phần mềm được viết bởi Võ Hữu Ngợi - 0917010170.
   Thư viện đi kèm: QR Code Generator for JavaScript (Kazuhiko Arase, MIT), jsQR (Cosmo Wolfe, Apache-2.0),
   phông chữ Be Vietnam Pro (SIL Open Font License 1.1). Chi tiết trong THIRD-PARTY-NOTICES.md.
@@ -24,7 +24,8 @@
 /* nền đỏ tươi, bảng trắng, khay mã QR sáng viền vàng; giao diện tối giữ khay sơn mài đen */
 :root{
   color-scheme:light;
-  --ground-a:#d91a29; --ground-b:#cd1525; --ground-c:#ac0f1d; --ground-hi:#f4404a; --pit:#960b19;
+  --ground-a:#de1d2a; --ground-b:#cd1430; --ground-c:#a50f48; --ground-hi:#f4404a; --pit:#5f0a38;
+  --glow2:rgba(255,140,50,.78); --glow3:rgba(214,31,105,.6); --glow4:rgba(255,201,53,.22); --streak:rgba(255,255,255,.07);
   --on-ground:#ffffff; --on-ground-mute:#fff7f5; --on-ground-line:rgba(255,255,255,.36); --on-ground-fill:rgba(255,255,255,.09);
   --paper:#ffffff; --paper2:#fff1ee; --paper3:#ffe2dd;
   --ink:#2a0d10; --mute:#6c4e52; --faint:#85666a;
@@ -42,6 +43,7 @@
   --sans:"Be Vietnam Pro","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Arial,sans-serif;
 }
 html[data-theme="dark"]{
+  --glow2:rgba(255,96,40,.26); --glow3:rgba(170,24,100,.4); --glow4:rgba(255,201,53,.09); --streak:rgba(255,255,255,.035);
   color-scheme:dark;
   --ground-a:#5e121a; --ground-b:#420c13; --ground-c:#2c070c; --ground-hi:#7d1721; --pit:#1d0408;
   --on-ground:#ffeee6; --on-ground-mute:#ecccc4; --on-ground-line:rgba(255,226,216,.17); --on-ground-fill:rgba(255,255,255,.05);
@@ -61,16 +63,24 @@ html,body{margin:0}
 html{background:var(--ground-c);-webkit-text-size-adjust:100%}
 body{font-family:var(--sans);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;
   background:
+    linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px) 0 0/40px 40px,
+    linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px) 0 0/40px 40px,
+    linear-gradient(118deg,transparent 38%,var(--streak) 50%,transparent 62%),
+    radial-gradient(640px 520px at 104% 40%,var(--glow2) 0%,transparent 70%),
     radial-gradient(1200px 700px at 86% -14%,var(--ground-hi) 0%,transparent 60%),
+    radial-gradient(760px 520px at 46% 118%,var(--glow3) 0%,transparent 68%),
+    radial-gradient(380px 300px at 62% 64%,var(--glow4) 0%,transparent 70%),
     radial-gradient(900px 640px at -10% 108%,var(--pit) 0%,transparent 62%),
-    linear-gradient(165deg,var(--ground-a) 0%,var(--ground-b) 48%,var(--ground-c) 100%);
+    linear-gradient(140deg,var(--ground-a) 0%,var(--ground-b) 42%,var(--ground-c) 100%);
   background-attachment:fixed}
-/* nền: trường mô-đun QR chìm trong lớp sơn, đậm ở hai góc rồi tan dần */
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.1;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath fill='%23fff' d='M5 0h1v1h-1zM7 0h1v1h-1zM9 0h1v1h-1zM13 0h1v1h-1zM20 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM9 1h1v1h-1zM10 1h1v1h-1zM11 1h1v1h-1zM13 1h1v1h-1zM15 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM14 2h1v1h-1zM16 2h1v1h-1zM17 2h1v1h-1zM21 2h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM7 3h1v1h-1zM15 3h1v1h-1zM16 3h1v1h-1zM18 3h1v1h-1zM19 3h1v1h-1zM0 4h1v1h-1zM3 4h1v1h-1zM8 4h1v1h-1zM12 4h1v1h-1zM20 4h1v1h-1zM3 5h1v1h-1zM7 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM2 6h1v1h-1zM5 6h1v1h-1zM9 6h1v1h-1zM11 6h1v1h-1zM13 6h1v1h-1zM2 7h1v1h-1zM6 7h1v1h-1zM7 7h1v1h-1zM15 7h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM19 8h1v1h-1zM13 9h1v1h-1zM0 10h1v1h-1zM4 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM15 10h1v1h-1zM11 11h1v1h-1zM14 11h1v1h-1zM15 11h1v1h-1zM0 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM18 12h1v1h-1zM20 12h1v1h-1zM0 13h1v1h-1zM4 13h1v1h-1zM9 13h1v1h-1zM12 13h1v1h-1zM13 13h1v1h-1zM14 13h1v1h-1zM21 13h1v1h-1zM1 14h1v1h-1zM7 14h1v1h-1zM10 14h1v1h-1zM13 14h1v1h-1zM18 14h1v1h-1zM21 14h1v1h-1zM4 15h1v1h-1zM7 15h1v1h-1zM9 15h1v1h-1zM12 15h1v1h-1zM17 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM6 16h1v1h-1zM11 16h1v1h-1zM14 16h1v1h-1zM17 16h1v1h-1zM18 16h1v1h-1zM19 16h1v1h-1zM0 17h1v1h-1zM3 17h1v1h-1zM8 17h1v1h-1zM10 17h1v1h-1zM17 17h1v1h-1zM9 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM17 18h1v1h-1zM18 18h1v1h-1zM2 19h1v1h-1zM6 19h1v1h-1zM14 19h1v1h-1zM2 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM12 20h1v1h-1zM19 20h1v1h-1zM2 21h1v1h-1zM3 21h1v1h-1zM4 21h1v1h-1zM5 21h1v1h-1zM7 21h1v1h-1zM13 21h1v1h-1zM14 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM21 21h1v1h-1z'/%3E%3C/svg%3E") 0 0/418px 418px;
+#bgNet{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.9}
+html[data-theme="dark"] #bgNet{opacity:.6}
+/* nền: lưới số mảnh phủ toàn trang, mạch điện tử và nút mạng đậm ở hai góc rồi tan dần */
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.2;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320' fill='none' stroke='%23fff' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M0 60H70L100 90H180M320 120H250L220 150V230M60 320V250L90 220H150M200 0V30L230 60H320M0 200H40L60 180M130 0V40M130 320V290L150 270H200M320 280H280L260 300V320M260 0V10'/%3E%3Cg fill='%23fff' stroke='none'%3E%3Ccircle cx='180' cy='90' r='4'/%3E%3Ccircle cx='150' cy='220' r='4'/%3E%3Ccircle cx='60' cy='180' r='3.2'/%3E%3Ccircle cx='200' cy='270' r='3.2'/%3E%3Ccircle cx='20' cy='120' r='1.6'/%3E%3Ccircle cx='290' cy='200' r='1.6'/%3E%3Ccircle cx='100' cy='150' r='1.6'/%3E%3Ccircle cx='270' cy='40' r='1.6'/%3E%3C/g%3E%3Ccircle cx='220' cy='230' r='5'/%3E%3Ccircle cx='130' cy='40' r='5'/%3E%3Crect x='236' y='246' width='0' height='0'/%3E%3C/svg%3E") 0 0/320px 320px;
   -webkit-mask-image:radial-gradient(75% 70% at 100% 0,#000 0,transparent 72%),radial-gradient(60% 55% at 0 100%,#000 0,transparent 72%);
   mask-image:radial-gradient(75% 70% at 100% 0,#000 0,transparent 72%),radial-gradient(60% 55% at 0 100%,#000 0,transparent 72%)}
-html[data-theme="dark"] body::before{opacity:.045}
+html[data-theme="dark"] body::before{opacity:.1}
 h1,h2,h3,h4{margin:0;font-weight:800;letter-spacing:-.02em}
 button{font-family:inherit}
 a{color:var(--accent-t)}
@@ -105,10 +115,13 @@ main{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:30px 24p
 .left,.side{display:contents}
 .hero,.sec-content,.sec-design,.recent,.foot{grid-column:1;min-width:0}
 .hero{grid-row:1}.sec-content{grid-row:2}.sec-design{grid-row:3}.recent{grid-row:4}.foot{grid-row:5}
-.hero{color:var(--on-ground);padding:2px 2px 6px;--focus:var(--gold)}
+.hero{color:var(--on-ground);padding:2px 2px 6px;--focus:var(--gold);text-shadow:0 1px 3px rgba(110,0,14,.45)}
 .hero h2{font-size:clamp(27px,3.5vw,44px);line-height:1.14;letter-spacing:-.03em}
 .hero h2 span{display:inline-block}
 .hero p{margin:12px 0 0;color:var(--on-ground-mute);font-size:15.5px;line-height:1.6;max-width:58ch;text-wrap:pretty}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
+.chips li{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--on-ground);border:1px solid var(--on-ground-line);background:var(--on-ground-fill);border-radius:999px;padding:5px 12px 5px 9px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.chips svg{width:15px;height:15px;flex:0 0 15px;color:var(--gold)}
 
 .card{background:var(--paper);border:1px solid transparent;border-radius:var(--r-panel);box-shadow:var(--shadow)}
 html[data-theme="dark"] .card{border-color:var(--line)}
@@ -189,6 +202,8 @@ html[data-theme="dark"] .ai{background:linear-gradient(135deg,#3a2a08,#3d1217);b
 .presets button{border:1px solid transparent;background:var(--paper2);border-radius:var(--r-tile);padding:12px 6px 9px;cursor:pointer;
   display:flex;flex-direction:column;align-items:center;gap:9px;font-size:12.5px;font-weight:600;color:var(--ink);transition:background .15s,border-color .15s}
 .presets button:hover{background:var(--paper3)}
+.presets .pl{grid-column:1/-1;font-size:13px;font-weight:600;color:var(--mute);margin-top:4px}
+.presets .pl:first-child{margin-top:0}
 .presets canvas{height:84px;width:auto;max-width:100%;border-radius:5px;background:#fff;box-shadow:0 0 0 1px rgba(60,8,12,.08),0 6px 12px -6px rgba(60,8,12,.35);transition:transform .18s}
 .presets button:hover canvas{transform:translateY(-2px)}
 
@@ -356,11 +371,26 @@ dialog[open]{animation:dlg .2s ease-out}
 .prog{font-size:13px;color:var(--mute);min-height:20px}
 .prog:empty{display:none}
 .mono{font-family:var(--mono);font-size:13px}
+/* khung camera quét mã */
+.cam{position:relative;border-radius:16px;overflow:hidden;background:#0b0102;aspect-ratio:4/3;max-height:54vh;width:100%}
+.cam video{width:100%;height:100%;object-fit:cover;display:block}
+.cam i{position:absolute;width:34px;height:34px;border:3px solid #fff;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.cam i:nth-of-type(1){left:14%;top:12%;border-right:0;border-bottom:0;border-radius:10px 0 0 0}
+.cam i:nth-of-type(2){right:14%;top:12%;border-left:0;border-bottom:0;border-radius:0 10px 0 0}
+.cam i:nth-of-type(3){left:14%;bottom:20%;border-right:0;border-top:0;border-radius:0 0 0 10px}
+.cam i:nth-of-type(4){right:14%;bottom:20%;border-left:0;border-top:0;border-radius:0 0 10px 0}
+.cam .beam{position:absolute;left:16%;right:16%;top:14%;height:2px;border-radius:2px;background:var(--gold);box-shadow:0 0 12px 2px rgba(255,201,53,.7);animation:beam 2.2s ease-in-out infinite alternate;pointer-events:none}
+@keyframes beam{from{top:14%}to{top:78%}}
+.cam-act{position:absolute;left:0;right:0;bottom:10px;display:flex;gap:8px;justify-content:center}
+.cam-act .btn{background:rgba(255,255,255,.94);color:#2a0d10;border-color:transparent;min-height:38px}
+#sCamGo{min-height:48px;font-size:15px}
+.acts a.btn{text-decoration:none}
 
 /* ───── chân trang: nằm cuối cột trái để khay ghim được tới hết trang ───── */
 .foot{margin-top:14px;padding-top:18px;border-top:1px solid var(--on-ground-line);color:var(--on-ground-mute);font-size:12.5px;line-height:1.7;
   display:flex;flex-direction:column;gap:4px}
 .foot p{margin:0;text-wrap:balance}
+.foot,.recent{text-shadow:0 1px 2px rgba(90,0,12,.4)}
 .foot b{color:var(--on-ground);font-weight:600}
 .foot .by{margin-top:8px;color:var(--on-ground);font-size:13.5px}
 
@@ -396,6 +426,7 @@ dialog[open]{animation:dlg .2s ease-out}
 
 /* ───── một cột: mã xem trước thành dải ghim trên đầu màn hình ───── */
 @media (max-width:940px){
+  :root{--glow2:transparent;--glow4:transparent;--streak:transparent}
   html{scroll-padding-top:calc(var(--q) + 44px)}
   :root{--q:clamp(104px,30vw,190px)}
   header{position:static}
@@ -453,13 +484,14 @@ dialog[open]{animation:dlg .2s ease-out}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 @media print{
   body{background:#fff!important}
-  body::before,body::after,header,main,.toast,dialog,#fsBox{display:none!important}
+  body::before,body::after,header,main,.toast,dialog,#fsBox,#bgNet{display:none!important}
   #printBox{display:flex;align-items:center;justify-content:center;min-height:92vh}
   #printBox img{width:95mm;height:auto}
 }
 </style>
 </head>
 <body>
+<canvas id="bgNet" aria-hidden="true"></canvas>
 <header>
   <div class="bar">
     <div class="brand">
@@ -468,7 +500,7 @@ dialog[open]{animation:dlg .2s ease-out}
     </div>
     <div class="htools">
       <button class="hb" id="btnBatch" type="button" title="Tạo nhiều mã QR cùng lúc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><path d="M17 14v6M14 17h6"/></svg><span class="lb">Tạo hàng loạt</span></button>
-      <button class="hb" id="btnScan" type="button" title="Đọc nội dung của một mã QR có sẵn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M4 12h16"/></svg><span class="lb">Đọc mã từ ảnh</span></button>
+      <button class="hb" id="btnScan" type="button" title="Quét mã QR bằng camera hoặc đọc từ ảnh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M4 12h16"/></svg><span class="lb">Quét mã QR</span></button>
       <button class="hb" id="btnFull" type="button" aria-pressed="false" title="Mở phần mềm toàn màn hình để dễ thao tác"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span class="lb" id="lbFull">Toàn màn hình</span></button>
       <button class="hb gold" id="btnInstall" type="button" hidden title="Cài phần mềm thành ứng dụng trên máy này"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg><span class="lb">Cài ứng dụng</span></button>
       <button class="hb sq" id="btnTheme" type="button" title="Đổi giao diện sáng/tối" aria-label="Đổi giao diện sáng/tối"></button>
@@ -483,6 +515,12 @@ dialog[open]{animation:dlg .2s ease-out}
       <div class="hero">
         <h2><span>Tạo mã QR chuyên nghiệp</span> <span>trong vài giây</span></h2>
         <p>Nhập nội dung, chọn thiết kế, rồi tải ảnh PNG độ phân giải cao hoặc SVG vector. Không quảng cáo, không gửi dữ liệu ra ngoài.</p>
+        <ul class="chips">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Trợ lý AI trên máy</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M4 12h16"/></svg>Quét mã bằng camera</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.3-2.9 7.6-7 9.5-4.1-1.9-7-5.2-7-9.5V6z"/><path d="M9 12l2.2 2.2L15 10.5"/></svg>Dữ liệu ở lại trên máy</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M3 3l18 18"/></svg>Dùng được khi mất mạng</li>
+        </ul>
       </div>
 
       <div class="card pad sec-content">
@@ -620,6 +658,7 @@ dialog[open]{animation:dlg .2s ease-out}
               <button type="button" data-v="vb"><svg viewBox="0 0 36 36" fill="currentColor"><rect x="5" y="4" width="7" height="19" rx="3.5"/><rect x="15" y="13" width="7" height="19" rx="3.5"/><rect x="25" y="4" width="7" height="11" rx="3.5"/><rect x="25" y="23" width="7" height="9" rx="3.5"/></svg>Sọc dọc</button>
               <button type="button" data-v="hb"><svg viewBox="0 0 36 36" fill="currentColor"><rect x="4" y="5" width="19" height="7" rx="3.5"/><rect x="13" y="15" width="19" height="7" rx="3.5"/><rect x="4" y="25" width="11" height="7" rx="3.5"/><rect x="23" y="25" width="9" height="7" rx="3.5"/></svg>Sọc ngang</button>
               <button type="button" data-v="cl"><svg viewBox="0 0 36 36" fill="currentColor"><path id="lf0" d="M8 4h4v4a4 4 0 0 1-4 4H4V8a4 4 0 0 1 4-4z"/><use href="#lf0" x="10"/><use href="#lf0" y="10"/><use href="#lf0" x="20" y="10"/><use href="#lf0" x="10" y="20"/></svg>Lá</button>
+              <button type="button" data-v="sr"><svg viewBox="0 0 36 36" fill="currentColor"><rect x="4.5" y="4.5" width="7" height="7" rx="2"/><rect x="14.5" y="4.5" width="7" height="7" rx="2"/><rect x="4.5" y="14.5" width="7" height="7" rx="2"/><rect x="24.5" y="14.5" width="7" height="7" rx="2"/><rect x="14.5" y="24.5" width="7" height="7" rx="2"/><rect x="24.5" y="24.5" width="7" height="7" rx="2"/></svg>Ô bo rời</button>
             </div>
           </div>
           <div class="fl"><span>Ô định vị (3 góc)</span>
@@ -721,11 +760,17 @@ dialog[open]{animation:dlg .2s ease-out}
   </div>
 </dialog>
 
-<!-- Đọc mã từ ảnh -->
+<!-- Quét mã QR: camera hoặc ảnh -->
 <dialog id="dlgScan" aria-labelledby="dlgScanH">
   <div class="dg">
-    <div class="dg-h"><div class="dg-t"><h3 id="dlgScanH">Đọc mã từ ảnh</h3><p>Chọn một ảnh có mã QR để xem nội dung bên trong. Ảnh được đọc ngay trên máy, không tải lên đâu cả.</p></div>
+    <div class="dg-h"><div class="dg-t"><h3 id="dlgScanH">Quét mã QR</h3><p>Quét bằng camera hoặc chọn một ảnh có mã QR để xem nội dung bên trong. Hình ảnh được xử lý ngay trên máy, không tải lên đâu cả.</p></div>
       <button class="x" type="button" data-close aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <button class="btn primary" id="sCamGo" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.2l1.2-1.8h6.2L16.3 6h1.2A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5z"/><circle cx="12" cy="12.5" r="3.4"/></svg>Quét bằng camera</button>
+    <div class="cam" id="sCam" hidden>
+      <video id="sVid" playsinline muted></video>
+      <i></i><i></i><i></i><i></i><span class="beam"></span>
+      <div class="cam-act"><button class="btn sm" id="sCamSw" type="button" hidden>Đổi camera</button><button class="btn sm" id="sCamStop" type="button">Dừng camera</button></div>
+    </div>
     <div class="drop" id="sDrop" tabindex="0" role="button"><i></i><i></i><i></i><i></i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M4 17l5-4.5 3.5 3 3-2.5 4.5 4"/></svg><span><b>Bấm để chọn ảnh</b>, kéo thả ảnh vào đây,<br>hoặc dán ảnh bằng Ctrl+V</span></div>
     <input type="file" id="sFile" accept="image/*" hidden>
     <div class="prog" id="sMsg"></div>
@@ -733,6 +778,7 @@ dialog[open]{animation:dlg .2s ease-out}
     <div class="row acts" id="sAct" hidden>
       <button class="btn" id="sCopy" type="button">Sao chép nội dung</button>
       <button class="btn" id="sUse" type="button">Tạo lại mã này</button>
+      <a class="btn" id="sOpen" hidden target="_blank" rel="noopener noreferrer">Mở liên kết</a>
     </div>
   </div>
 </dialog>
@@ -754,7 +800,7 @@ return qrcode;
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
-  var VERSION = '2.4.0';
+  var VERSION = '2.6.0';
   var KEY = 'qr-studio-v1';
   var DEF = { fg: '#15171c', bg: '#ffffff', tr: false, dot: 'sq', eye: 'sq', ec: 'M', mg: 4, size: '1024',
     gm: '', g2: '#c1121f', ga: 135, em: false, eo: '#15171c', ei: '#c1121f', fr: 'none', fc: '#c1121f' };
@@ -777,16 +823,28 @@ return qrcode;
     ['Kookmin TP.HCM', '970463'], ['CAKE', '546034'], ['Ubank', '546035'], ['Timo', '963388'], ['PVcomBank Pay', '971133'],
     ['MoMo', '971025'], ['ZaloPay', '971101']];
   var PRESETS = [
-    { n: 'Cổ điển', o: { fg: '#000000', bg: '#ffffff', dot: 'sq', eye: 'sq' } },
-    { n: 'Son đỏ', o: { fg: '#a8151d', bg: '#ffffff', dot: 'rd', eye: 'rd' } },
-    { n: 'Đỏ thắm', o: { fg: '#d00000', bg: '#ffffff', dot: 'dt', eye: 'ci', gm: 'lin', g2: '#5c0a0e', ga: 135 } },
-    { n: 'Sơn mài', o: { fg: '#2a0d10', bg: '#fff8ee', dot: 'cl', eye: 'lf', em: true, eo: '#a8151d', ei: '#2a0d10' } },
-    { n: 'Hoàng kim', o: { fg: '#7a4b00', bg: '#fffaf0', dot: 'rd', eye: 'mx', gm: 'rad', g2: '#4a2c00' } },
-    { n: 'Mực tàu', o: { fg: '#1b263b', bg: '#ffffff', dot: 'vb', eye: 'rd' } },
-    { n: 'Biển xanh', o: { fg: '#0077b6', bg: '#ffffff', dot: 'rd', eye: 'rd', gm: 'lin', g2: '#03045e', ga: 90 } },
-    { n: 'Lá non', o: { fg: '#1b5e20', bg: '#ffffff', dot: 'hb', eye: 'mx', em: true, eo: '#1b5e20', ei: '#b45309' } },
-    { n: 'Thẻ đỏ', o: { fg: '#15171c', bg: '#ffffff', dot: 'sq', eye: 'rd', fr: 'bot', fc: '#c1121f' }, cap: 'Quét mã tại đây' },
-    { n: 'Thẻ nhãn', o: { fg: '#8e0f1a', bg: '#ffffff', dot: 'dt', eye: 'ci', fr: 'pill', fc: '#8e0f1a' }, cap: 'Quét mã tại đây' }
+    { g: 'Hiện đại', n: 'Công nghệ số', o: { fg: '#1d4ed8', bg: '#ffffff', dot: 'sr', eye: 'rd', gm: 'lin', g2: '#0e7490', ga: 45 } },
+    { g: 'Hiện đại', n: 'Tím điện tử', o: { fg: '#6d28d9', bg: '#ffffff', dot: 'dt', eye: 'mx', gm: 'lin', g2: '#be185d', ga: 135 } },
+    { g: 'Hiện đại', n: 'Đỏ số', o: { fg: '#b91c1c', bg: '#ffffff', dot: 'sr', eye: 'rd', gm: 'lin', g2: '#7f1d1d', ga: 135, fr: 'top', fc: '#dc2626' }, cap: 'Quét mã tại đây' },
+    { g: 'Hiện đại', n: 'Hoàng hôn', o: { fg: '#c2410c', bg: '#ffffff', dot: 'rd', eye: 'ci', gm: 'lin', g2: '#9d174d', ga: 90 } },
+    { g: 'Hiện đại', n: 'Bạc hà', o: { fg: '#047857', bg: '#ffffff', dot: 'sr', eye: 'lf', gm: 'rad', g2: '#134e4a', em: true, eo: '#064e3b', ei: '#0f766e' } },
+    { g: 'Hiện đại', n: 'Carbon', o: { fg: '#111827', bg: '#f3f4f6', dot: 'sr', eye: 'rd', em: true, eo: '#111827', ei: '#dc2626' } },
+    { g: 'Hiện đại', n: 'Xanh đêm', o: { fg: '#0f172a', bg: '#ffffff', dot: 'vb', eye: 'mx', gm: 'lin', g2: '#1e40af', ga: 135 } },
+    { g: 'Hiện đại', n: 'San hô', o: { fg: '#be123c', bg: '#fff7f5', dot: 'cl', eye: 'lf', gm: 'lin', g2: '#c2410c', ga: 45 } },
+    { g: 'Hiện đại', n: 'Tối giản', o: { fg: '#18181b', bg: '#ffffff', dot: 'dt', eye: 'ci', fr: 'line', fc: '#18181b' } },
+    { g: 'Hiện đại', n: 'Thẻ công nghệ', o: { fg: '#1e3a8a', bg: '#ffffff', dot: 'sr', eye: 'rd', fr: 'bot', fc: '#1d4ed8' }, cap: 'Quét mã tại đây' },
+    { g: 'Hiện đại', n: 'Thẻ tím', o: { fg: '#4c1d95', bg: '#ffffff', dot: 'dt', eye: 'ci', gm: 'lin', g2: '#be185d', ga: 135, fr: 'pill', fc: '#6d28d9' }, cap: 'Quét mã tại đây' },
+    { g: 'Hiện đại', n: 'Vàng đen', o: { fg: '#1c1917', bg: '#fffbeb', dot: 'hb', eye: 'mx', em: true, eo: '#1c1917', ei: '#b45309', fr: 'bot', fc: '#f59e0b' }, cap: 'Quét mã tại đây' },
+    { g: 'Cổ điển', n: 'Cổ điển', o: { fg: '#000000', bg: '#ffffff', dot: 'sq', eye: 'sq' } },
+    { g: 'Cổ điển', n: 'Son đỏ', o: { fg: '#a8151d', bg: '#ffffff', dot: 'rd', eye: 'rd' } },
+    { g: 'Cổ điển', n: 'Đỏ thắm', o: { fg: '#d00000', bg: '#ffffff', dot: 'dt', eye: 'ci', gm: 'lin', g2: '#5c0a0e', ga: 135 } },
+    { g: 'Cổ điển', n: 'Sơn mài', o: { fg: '#2a0d10', bg: '#fff8ee', dot: 'cl', eye: 'lf', em: true, eo: '#a8151d', ei: '#2a0d10' } },
+    { g: 'Cổ điển', n: 'Hoàng kim', o: { fg: '#7a4b00', bg: '#fffaf0', dot: 'rd', eye: 'mx', gm: 'rad', g2: '#4a2c00' } },
+    { g: 'Cổ điển', n: 'Mực tàu', o: { fg: '#1b263b', bg: '#ffffff', dot: 'vb', eye: 'rd' } },
+    { g: 'Cổ điển', n: 'Biển xanh', o: { fg: '#0077b6', bg: '#ffffff', dot: 'rd', eye: 'rd', gm: 'lin', g2: '#03045e', ga: 90 } },
+    { g: 'Cổ điển', n: 'Lá non', o: { fg: '#1b5e20', bg: '#ffffff', dot: 'hb', eye: 'mx', em: true, eo: '#1b5e20', ei: '#b45309' } },
+    { g: 'Cổ điển', n: 'Thẻ đỏ', o: { fg: '#15171c', bg: '#ffffff', dot: 'sq', eye: 'rd', fr: 'bot', fc: '#c1121f' }, cap: 'Quét mã tại đây' },
+    { g: 'Cổ điển', n: 'Thẻ nhãn', o: { fg: '#8e0f1a', bg: '#ffffff', dot: 'dt', eye: 'ci', fr: 'pill', fc: '#8e0f1a' }, cap: 'Quét mã tại đây' }
   ];
 
   function load() { try { var o = JSON.parse(localStorage.getItem(KEY)); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
@@ -939,6 +997,7 @@ return qrcode;
     } else for (r = 0; r < n; r++) for (c = 0; c < n; c++) {
       if (!on(r, c)) continue; x = c + g + ox; y = r + g + oy;
       if (opt.dot === 'dt') d.push(circ(x + 0.5, y + 0.5, 0.45));
+      else if (opt.dot === 'sr') d.push(rq(x + 0.07, y + 0.07, 0.86, 0.86, 0.26));
       else if (opt.dot === 'rd' || opt.dot === 'cl') {
         tp = on(r - 1, c); bt = on(r + 1, c); lf = on(r, c - 1); rt = on(r, c + 1);
         d.push(rr(x, y, 1 + (rt ? 0.02 : 0), 1 + (bt ? 0.02 : 0), !tp && !lf ? 0.5 : 0, opt.dot === 'rd' && !tp && !rt ? 0.5 : 0, !bt && !rt ? 0.5 : 0, opt.dot === 'rd' && !bt && !lf ? 0.5 : 0));
@@ -1171,7 +1230,7 @@ return qrcode;
   function presetOpts(p) { var o = {}; LOOK.forEach(function (k) { o[k] = DEF[k]; }); Object.keys(p.o).forEach(function (k) { o[k] = p.o[k]; }); return o; }
   (function () {
     var box = $('presets');
-    box.innerHTML = PRESETS.map(function (p, i) { return '<button type="button" data-i="' + i + '"><canvas width="10" height="10"></canvas>' + esc(p.n) + '</button>'; }).join('');
+    box.innerHTML = PRESETS.map(function (p, i) { return (!i || PRESETS[i - 1].g !== p.g ? '<div class="pl">' + esc(p.g) + '</div>' : '') + '<button type="button" data-i="' + i + '"><canvas width="10" height="10"></canvas>' + esc(p.n) + '</button>'; }).join('');
     Array.prototype.forEach.call(box.querySelectorAll('button'), function (b, i) {
       var p = PRESETS[i], o = presetOpts(p); o.ec = 'M'; o.mg = 2; o.cap = p.cap ? 'Quét mã' : ''; o.logo = ''; o.lsz = 22; o.lpad = true;
       try { var g = build('https://qr.studio', o); paint(b.firstChild, g, Math.max(2, Math.floor(152 / g.W)), null); } catch (e) {}
@@ -1253,6 +1312,57 @@ return qrcode;
   $('btnBatch').onclick = function () { $('bProg').textContent = ''; openDlg($('dlgBatch')); };
   $('bGo').onclick = runBatch;
 
+  /* ---------- quét mã bằng camera: khung hình được giải mã ngay trên máy ---------- */
+  var cam = { stream: null, raf: 0, last: 0, n: 0, devs: [], idx: 0 }, camCv = document.createElement('canvas');
+  function resText(res) { var txt = res.data; try { txt = new TextDecoder('utf-8', { fatal: true }).decode(new Uint8Array(res.binaryData)); } catch (e) {} return txt || res.data || ''; }
+  function showScan(txt, head) {
+    var isUrl = /^https?:\/\/\S+$/i.test(txt.trim()), a = $('sOpen');
+    $('sMsg').textContent = head; $('sOut').value = txt; $('sOut').hidden = false; $('sAct').hidden = false;
+    a.hidden = !isUrl; if (isUrl) a.href = txt.trim(); else a.removeAttribute('href');
+  }
+  function camStop() {
+    cancelAnimationFrame(cam.raf); cam.raf = 0;
+    if (cam.stream) { cam.stream.getTracks().forEach(function (t) { t.stop(); }); cam.stream = null; }
+    var v = $('sVid'); try { v.pause(); } catch (e) {} v.srcObject = null;
+    $('sCam').hidden = true; $('sCamGo').hidden = false; $('sDrop').hidden = false;
+  }
+  function camTick(ts) {
+    if (!cam.stream) return; cam.raf = requestAnimationFrame(camTick);
+    if (ts - cam.last < 140) return; cam.last = ts;
+    var v = $('sVid'), w = v.videoWidth, h = v.videoHeight; if (!w || !h || typeof jsQR !== 'function') return;
+    var s = Math.min(1, 800 / Math.max(w, h)); camCv.width = Math.round(w * s); camCv.height = Math.round(h * s);
+    var x = camCv.getContext('2d', { willReadFrequently: true }); x.drawImage(v, 0, 0, camCv.width, camCv.height);
+    var id = x.getImageData(0, 0, camCv.width, camCv.height), res = null;
+    try { res = jsQR(id.data, id.width, id.height, { inversionAttempts: cam.n++ % 4 === 3 ? 'attemptBoth' : 'dontInvert' }); } catch (e) { res = null; }
+    var txt = res ? resText(res) : ''; if (!txt) return;
+    camStop(); try { if (navigator.vibrate) navigator.vibrate(80); } catch (e) {}
+    showScan(txt, 'Đã quét được. Nội dung trong mã:');
+  }
+  function camStart(deviceId) {
+    var msg = $('sMsg'); $('sOut').hidden = true; $('sAct').hidden = true;
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg.textContent = 'Ở đây trình duyệt không cho dùng camera. Hãy mở phần mềm bằng địa chỉ web (https) hoặc bản Windows, hoặc chọn ảnh có mã QR bên dưới.'; return; }
+    camStop(); msg.textContent = 'Đang mở camera…';
+    var want = { audio: false, video: deviceId ? { deviceId: { exact: deviceId } } : { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } } };
+    navigator.mediaDevices.getUserMedia(want).then(function (st) {
+      if (!$('dlgScan').open) { st.getTracks().forEach(function (t) { t.stop(); }); return; }
+      cam.stream = st; cam.n = 0; var v = $('sVid'); v.srcObject = st; v.muted = true; var pl = v.play(); if (pl && pl.catch) pl.catch(function () {});
+      $('sCam').hidden = false; $('sCamGo').hidden = true; $('sDrop').hidden = true; msg.textContent = 'Đưa mã QR vào giữa khung hình và giữ yên tay.';
+      navigator.mediaDevices.enumerateDevices().then(function (ds) { cam.devs = ds.filter(function (d) { return d.kind === 'videoinput'; }); $('sCamSw').hidden = cam.devs.length < 2; }, function () {});
+      cam.raf = requestAnimationFrame(camTick);
+    }, function (e) {
+      var n = e && e.name;
+      msg.textContent = n === 'NotAllowedError' || n === 'SecurityError' ? 'Chưa được cấp quyền dùng camera. Hãy bấm biểu tượng ổ khoá cạnh thanh địa chỉ, cho phép Camera, rồi bấm quét lại.'
+        : n === 'NotFoundError' || n === 'OverconstrainedError' ? 'Không tìm thấy camera trên máy này. Hãy chọn một ảnh có mã QR bên dưới.'
+        : n === 'NotReadableError' ? 'Camera đang được ứng dụng khác sử dụng. Hãy đóng ứng dụng đó rồi bấm quét lại.'
+        : 'Không mở được camera. Hãy chọn một ảnh có mã QR bên dưới.';
+    });
+  }
+  $('sCamGo').onclick = function () { camStart(''); };
+  $('sCamStop').onclick = function () { camStop(); $('sMsg').textContent = ''; };
+  $('sCamSw').onclick = function () { if (cam.devs.length < 2) return; cam.idx = (cam.idx + 1) % cam.devs.length; camStart(cam.devs[cam.idx].deviceId); };
+  $('dlgScan').addEventListener('close', camStop);
+  document.addEventListener('visibilitychange', function () { if (document.hidden && cam.stream) { camStop(); $('sMsg').textContent = 'Camera đã tắt khi anh/chị rời trang. Bấm quét lại để tiếp tục.'; } });
+
   /* ---------- đọc mã từ ảnh ---------- */
   function decodeImage(im) {
     var w0 = im.naturalWidth || im.width, h0 = im.naturalHeight || im.height, m = Math.max(w0, h0, 1), res = null, seen = {};
@@ -1264,9 +1374,7 @@ return qrcode;
       try { res = jsQR(id.data, id.width, id.height, { inversionAttempts: 'attemptBoth' }); } catch (e) { res = null; }
     });
     if (!res) return null;
-    var txt = res.data;
-    try { txt = new TextDecoder('utf-8', { fatal: true }).decode(new Uint8Array(res.binaryData)); } catch (e) {}
-    return txt || res.data || '';
+    return resText(res);
   }
   function scanFile(f) {
     var msg = $('sMsg'), out = $('sOut'), act = $('sAct');
@@ -1276,12 +1384,12 @@ return qrcode;
     im.onload = function () {
       var txt = typeof jsQR === 'function' ? decodeImage(im) : null; URL.revokeObjectURL(url);
       if (txt == null || txt === '') { msg.textContent = 'Không tìm thấy mã QR trong ảnh này. Hãy thử ảnh rõ hơn, chụp thẳng và đủ sáng.'; return; }
-      msg.textContent = 'Nội dung trong mã:'; out.value = txt; out.hidden = false; act.hidden = false;
+      showScan(txt, 'Nội dung trong mã:');
     };
     im.onerror = function () { URL.revokeObjectURL(url); msg.textContent = 'Không mở được ảnh này, hãy thử ảnh khác.'; };
     im.src = url;
   }
-  $('btnScan').onclick = function () { $('sMsg').textContent = ''; $('sOut').hidden = true; $('sAct').hidden = true; openDlg($('dlgScan')); };
+  $('btnScan').onclick = function () { camStop(); $('sMsg').textContent = ''; $('sOut').hidden = true; $('sAct').hidden = true; openDlg($('dlgScan')); };
   $('sDrop').onclick = function () { $('sFile').click(); };
   $('sDrop').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('sFile').click(); } });
   $('sFile').addEventListener('change', function () { var f = this.files && this.files[0]; this.value = ''; if (f) scanFile(f); });
@@ -1456,6 +1564,46 @@ return qrcode;
     S.d = aiUndo.d; S.logo.sz = aiUndo.sz; S.logo.pad = aiUndo.pad; aiUndo = null; save(); writeDesign(); render(); aiShow(['Đã quay lại thiết kế trước đó.'], null, false);
   });
   $('chk').addEventListener('click', function (e) { if (!e.target.closest('[data-fix]')) return; setTab('preset'); aiRun(aiFix); var bx = $('aiBox'); if (bx.scrollIntoView) bx.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); });
+
+  /* ---------- nền động: mạng lưới điểm kết nối trôi chậm (dừng khi ẩn trang, đứng yên nếu máy tắt hiệu ứng) ---------- */
+  (function () {
+    var cv = $('bgNet'); if (!cv || !cv.getContext) return;
+    var x = cv.getContext('2d'), W = 0, H = 0, dpr = 1, pts = [], raf = 0, last = 0, mouse = null, seedN = 0x2f6e2b1;
+    var still = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    function rnd() { seedN = (seedN * 1664525 + 1013904223) >>> 0; return seedN / 4294967296; }
+    function size() {
+      dpr = Math.min(2, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      var n = Math.round(Math.min(110, Math.max(22, W * H / 13000)));
+      while (pts.length < n) { var a = rnd() * 6.283, sp = 5 + rnd() * 9; pts.push({ x: rnd() * W, y: rnd() * H, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, r: 1.4 + rnd() * 1.6, hub: rnd() < 0.18 }); }
+      pts.length = n;
+      pts.forEach(function (p) { if (p.x > W) p.x = rnd() * W; if (p.y > H) p.y = rnd() * H; });
+    }
+    function draw(dt) {
+      var i, j, p, q, d, D = Math.min(200, Math.max(130, W / 7)), all = mouse ? pts.concat([mouse]) : pts;
+      x.setTransform(dpr, 0, 0, dpr, 0, 0); x.clearRect(0, 0, W, H);
+      for (i = 0; i < pts.length; i++) { p = pts[i]; p.x += p.vx * dt; p.y += p.vy * dt; if (p.x < -20) p.x = W + 20; else if (p.x > W + 20) p.x = -20; if (p.y < -20) p.y = H + 20; else if (p.y > H + 20) p.y = -20; }
+      x.lineWidth = 1;
+      for (i = 0; i < all.length; i++) for (j = i + 1; j < all.length; j++) {
+        p = all[i]; q = all[j]; d = Math.hypot(p.x - q.x, p.y - q.y); if (d >= D) continue;
+        x.strokeStyle = 'rgba(255,255,255,' + ((1 - d / D) * (q === mouse ? 0.6 : 0.38)).toFixed(3) + ')'; x.beginPath(); x.moveTo(p.x, p.y); x.lineTo(q.x, q.y); x.stroke();
+      }
+      for (i = 0; i < pts.length; i++) {
+        p = pts[i];
+        if (p.hub) { x.fillStyle = 'rgba(255,201,53,.9)'; x.beginPath(); x.arc(p.x, p.y, p.r + 0.6, 0, 6.3); x.fill(); x.strokeStyle = 'rgba(255,201,53,.45)'; x.lineWidth = 1; x.beginPath(); x.arc(p.x, p.y, p.r + 5, 0, 6.3); x.stroke(); }
+        else { x.fillStyle = 'rgba(255,255,255,.82)'; x.beginPath(); x.arc(p.x, p.y, p.r, 0, 6.3); x.fill(); }
+      }
+    }
+    function tick(ts) { raf = requestAnimationFrame(tick); if (ts - last < 33) return; var dt = Math.min(0.1, (ts - last) / 1000); last = ts; draw(dt); }
+    function start() { if (still || raf || document.hidden) return; last = performance.now(); raf = requestAnimationFrame(tick); }
+    function stop() { cancelAnimationFrame(raf); raf = 0; }
+    size(); draw(0); start();
+    window.addEventListener('resize', function () { size(); draw(0); });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+    window.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse') mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
+    document.addEventListener('pointerleave', function () { mouse = null; });
+    window.__bgNet = { count: function () { return pts.length; }, running: function () { return !!raf; } };
+  })();
 
   /* ---------- cài như ứng dụng (khi chạy trên web https) ---------- */
   (function () {

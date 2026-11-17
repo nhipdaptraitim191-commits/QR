@@ -1,6 +1,6 @@
 {
   "name": "tao-ma-qr-chuyen-nghiep",
-  "version": "2.4.0",
+  "version": "2.6.0",
   "description": "Phần mềm tạo mã quét QR chuyên nghiệp: miễn phí, chạy hoàn toàn trên máy.",
   "main": "desktop/main.js",
   "private": true,
