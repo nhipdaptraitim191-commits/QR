@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Phần mềm tạo mã quét QR chuyên nghiệp 2.9.4 · miễn phí, chạy hoàn toàn trên máy.
+  Phần mềm tạo mã quét QR chuyên nghiệp 3.0.0 · miễn phí, chạy hoàn toàn trên máy.
   Phần mềm được viết bởi Võ Hữu Ngợi - 0917010170.
   Thư viện đi kèm: QR Code Generator for JavaScript (Kazuhiko Arase, MIT), jsQR (Cosmo Wolfe, Apache-2.0),
   phông chữ Be Vietnam Pro (SIL Open Font License 1.1). Chi tiết trong THIRD-PARTY-NOTICES.md.
@@ -156,6 +156,10 @@ html[data-theme="dark"] .card{border-color:var(--line)}
 .seg{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:6px}
 .seg button{gap:6px;padding:11px 6px 9px}
 .seg button svg{width:30px;height:30px;flex:0 0 30px}
+.seg.shp{grid-template-columns:repeat(2,minmax(0,1fr))}
+.seg.shp button{flex-direction:row;justify-content:center;gap:10px;padding:10px 8px;font-size:14px;font-weight:700}
+.seg.shp button svg{width:28px;height:28px;flex:0 0 28px}
+[data-tp=preset]>.fl:first-child{margin-bottom:14px}
 @media(min-width:600px){#segDot{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .seg.txt{grid-template-columns:repeat(3,minmax(0,1fr))}
 .seg.txt button{flex-direction:row;justify-content:center;align-items:center;padding:8px 8px;min-height:44px}
@@ -626,6 +630,12 @@ dialog[open]{animation:dlg .2s ease-out}
         </div>
 
         <div class="tp" data-tp="preset">
+          <div class="fl"><span>Hình dạng mã</span>
+            <div class="seg shp" id="segShp">
+              <button type="button" data-v="sq"><svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true"><path d="M5.5 5.5h8v8h-8zM22.5 5.5h8v8h-8zM5.5 22.5h8v8h-8z" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="8.5" y="8.5" width="2" height="2"/><rect x="25.5" y="8.5" width="2" height="2"/><rect x="8.5" y="25.5" width="2" height="2"/><rect x="18" y="18" width="4" height="4"/><rect x="24" y="23" width="4" height="4"/><rect x="18" y="26" width="3" height="3"/><rect x="27" y="17" width="3" height="3"/></svg>Vuông</button>
+              <button type="button" data-v="ci"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2"/><g fill="currentColor"><path d="M10.5 10.5h5v5h-5zM20.5 10.5h5v5h-5zM10.5 20.5h5v5h-5z" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="21" y="21" width="2.5" height="2.5"/><rect x="24" y="24" width="2" height="2"/><circle cx="7" cy="18" r="1.2"/><circle cx="29" cy="18" r="1.2"/><circle cx="18" cy="6.5" r="1.2"/><circle cx="18" cy="29.5" r="1.2"/><circle cx="9.5" cy="9.5" r="1"/><circle cx="26.5" cy="26.5" r="1"/><circle cx="26.5" cy="9.5" r="1"/><circle cx="9.5" cy="26.5" r="1"/></g></svg>Tròn</button>
+            </div>
+          </div>
           <div class="ai" id="aiBox">
             <div class="ai-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15v4M17 17h4M5 3v3M3.5 4.5h3"/></svg>
               <div><b>Trợ lý AI thiết kế tự động</b><span>Chạy ngay trên máy, không cần mạng. Tự phối màu theo logo và loại nội dung, chọn nền, khung, viền, rồi tự vẽ thử và kiểm tra cho tới khi mã quét được.</span></div></div>
@@ -671,6 +681,12 @@ dialog[open]{animation:dlg .2s ease-out}
         </div>
 
         <div class="tp" data-tp="shape" hidden>
+          <div class="fl"><span>Hình dạng mã</span>
+            <div class="seg shp" id="segShp2">
+              <button type="button" data-v="sq"><svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true"><path d="M5.5 5.5h8v8h-8zM22.5 5.5h8v8h-8zM5.5 22.5h8v8h-8z" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="8.5" y="8.5" width="2" height="2"/><rect x="25.5" y="8.5" width="2" height="2"/><rect x="8.5" y="25.5" width="2" height="2"/><rect x="18" y="18" width="4" height="4"/><rect x="24" y="23" width="4" height="4"/><rect x="18" y="26" width="3" height="3"/><rect x="27" y="17" width="3" height="3"/></svg>Vuông</button>
+              <button type="button" data-v="ci"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2"/><g fill="currentColor"><path d="M10.5 10.5h5v5h-5zM20.5 10.5h5v5h-5zM10.5 20.5h5v5h-5z" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="21" y="21" width="2.5" height="2.5"/><rect x="24" y="24" width="2" height="2"/><circle cx="7" cy="18" r="1.2"/><circle cx="29" cy="18" r="1.2"/><circle cx="18" cy="6.5" r="1.2"/><circle cx="18" cy="29.5" r="1.2"/><circle cx="9.5" cy="9.5" r="1"/><circle cx="26.5" cy="26.5" r="1"/><circle cx="26.5" cy="9.5" r="1"/><circle cx="9.5" cy="26.5" r="1"/></g></svg>Tròn</button>
+            </div>
+          </div>
           <div class="fl"><span>Kiểu điểm</span>
             <div class="seg" id="segDot">
               <button type="button" data-v="sq"><svg viewBox="0 0 36 36" fill="currentColor"><rect x="4" y="4" width="8" height="8"/><rect x="14" y="4" width="8" height="8"/><rect x="4" y="14" width="8" height="8"/><rect x="24" y="14" width="8" height="8"/><rect x="14" y="24" width="8" height="8"/></svg>Vuông</button>
@@ -880,9 +896,9 @@ return qrcode;
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
-  var VERSION = '2.9.4';
+  var VERSION = '3.0.0';
   var KEY = 'qr-studio-v1';
-  var DEF = { fg: '#15171c', bg: '#ffffff', tr: false, dot: 'sq', eye: 'sq', ec: 'M', mg: 4, size: '1024',
+  var DEF = { shp: 'sq', fg: '#15171c', bg: '#ffffff', tr: false, dot: 'sq', eye: 'sq', ec: 'M', mg: 4, size: '1024',
     gm: '', g2: '#c1121f', ga: 135, em: false, eo: '#15171c', ei: '#c1121f', fr: 'none', fc: '#c1121f' };
   var LOOK = ['fg', 'bg', 'tr', 'dot', 'eye', 'gm', 'g2', 'ga', 'em', 'eo', 'ei', 'fr', 'fc'];
   var FIELDS = {
@@ -1035,6 +1051,8 @@ return qrcode;
   function rq(x, y, w, h, r) { return rr(x, y, w, h, r, r, r, r); }
   function oct(x, y, s, c) { return 'M' + k(x + c) + ' ' + k(y) + 'H' + k(x + s - c) + 'L' + k(x + s) + ' ' + k(y + c) + 'V' + k(y + s - c) + 'L' + k(x + s - c) + ' ' + k(y + s) + 'H' + k(x + c) + 'L' + k(x) + ' ' + k(y + s - c) + 'V' + k(y + c) + 'Z'; }
   function circ(cx, cy, r) { return 'M' + k(cx - r) + ' ' + k(cy) + 'A' + k(r) + ' ' + k(r) + ' 0 1 0 ' + k(cx + r) + ' ' + k(cy) + 'A' + k(r) + ' ' + k(r) + ' 0 1 0 ' + k(cx - r) + ' ' + k(cy) + 'Z'; }
+  /* số ngẫu nhiên cố định theo nội dung: cùng nội dung luôn ra cùng hoa văn */
+  function seeded(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } h = h || 1; return function () { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return (h >>> 0) / 4294967296; }; }
   var scratch = document.createElement('canvas').getContext('2d');
   var FONT = '"Inter","Segoe UI",Roboto,Arial,sans-serif';
   function textW(s, fs) { scratch.font = '600 ' + (fs * 100) + 'px ' + FONT; return scratch.measureText(s).width / 100; }
@@ -1053,8 +1071,39 @@ return qrcode;
     var fr = /^(line|bot|top|pill)$/.test(opt.fr) ? opt.fr : 'none', cap = String(opt.cap || '').trim(), band = fr === 'bot' || fr === 'top';
     var t = fr === 'line' ? 0.5 : fr === 'pill' ? 0.6 : band ? 1.4 : 0;
     var W = Q + 2 * t, ox = t, oy = t, H = W, fs = cap ? Math.max(1.5, W * 0.052) : 0, lines = [], capY = 0, tcol = opt.fg;
-    var fpath = '', frule = 'nonzero', ppath = '', pill = '';
-    if (fr === 'none' || fr === 'line') {
+    var fpath = '', frule = 'nonzero', ppath = '', pill = '', pillC = '', ring = '', ringC = '', disc = '', lo = 0, hi = n, deco = null, round = opt.shp === 'ci', R = 0, ccx = 0, ccy = 0;
+    if (round) {
+      /* MÃ TRÒN: mã thật nằm giữa, quanh mã chừa 2 ô trống làm vùng yên tĩnh cho máy quét;
+         phần còn lại của hình tròn lấp hoa văn cùng kiểu điểm và màu; ngoài cùng là viền tròn */
+      var qz = 2, mo = Math.max(0.5, g * 0.5), ph = 0, pw = 0, py = 0;
+      R = (n / 2 + qz) * Math.SQRT2 + 0.6;
+      var Ro = R + 1.45, Ri = R + 0.55;
+      W = 2 * (Ro + mo); ccx = W / 2; ccy = mo + Ro; g = 0;
+      fs = cap ? Math.max(1.5, W * 0.045) : 0;
+      if (cap) { lines = wrap(cap, fs, W * 0.78, 2); ph = lines.length * fs * 1.3 + fs * 0.7; pw = Math.min(W, Math.max.apply(null, lines.map(function (l) { return textW(l, fs); })) + fs * 2.4); }
+      if (cap && fr === 'top') { py = mo * 0.6; ccy = py + ph + 0.9 + Ro; }
+      H = ccy + Ro + mo;
+      if (cap && fr !== 'top') { py = ccy + Ro + 0.9; H = py + ph + Math.max(0.6, mo * 0.6); }
+      ox = ccx - n / 2; oy = ccy - n / 2;
+      disc = circ(ccx, ccy, Ro); ring = circ(ccx, ccy, Ro) + circ(ccx, ccy, Ri); ringC = fr === 'none' ? '' : opt.fc;
+      if (cap) {
+        var solid = fr === 'bot' || fr === 'top' || fr === 'pill';
+        pillC = solid ? opt.fc : (opt.tr ? '' : opt.bg); tcol = solid ? onColor(opt.fc) : opt.fg;
+        if (pillC) pill = rq((W - pw) / 2, py, pw, ph, Math.min(ph / 2, fs * 1.1));
+        capY = py + ph / 2 - (lines.length - 1) * fs * 1.3 / 2 + fs * 0.36;
+      }
+      /* hoa văn nối tiếp lưới của mã; không để 3 ô đậm liền nhau theo hàng hoặc cột nên không thể giống ô định vị */
+      var E = Math.ceil(R - n / 2) + 1, rnd = seeded(text + '|' + n), lim = R - 0.75, dr, dc, dx, dy;
+      lo = -E; hi = n + E; deco = {};
+      for (dr = lo; dr < hi; dr++) for (dc = lo; dc < hi; dc++) {
+        if (dr >= -qz && dr < n + qz && dc >= -qz && dc < n + qz) continue;
+        dx = dc + 0.5 - n / 2; dy = dr + 0.5 - n / 2; if (dx * dx + dy * dy > lim * lim) continue;
+        if (rnd() > 0.52) continue;
+        if (deco[dr + ',' + (dc - 1)] && deco[dr + ',' + (dc - 2)]) continue;
+        if (deco[(dr - 1) + ',' + dc] && deco[(dr - 2) + ',' + dc]) continue;
+        deco[dr + ',' + dc] = 1;
+      }
+    } else if (fr === 'none' || fr === 'line') {
       if (cap) { lines = wrap(cap, fs, Q - 2 * Math.max(g, 1.5), 2); capY = oy + g + n + Math.max(1.2, g * 0.45) + fs * 0.95; H = capY + (lines.length - 1) * fs * 1.3 + fs * 0.35 + Math.max(1.2, g * 0.6) + t; }
       if (fr === 'line') { fpath = rq(0, 0, W, H, 2) + rq(t, t, W - 2 * t, H - 2 * t, 1.5); frule = 'evenodd'; }
     } else if (band) {
@@ -1071,13 +1120,13 @@ return qrcode;
     function eye(r, c) { return (r < 7 && c < 7) || (r < 7 && c >= n - 7) || (r >= n - 7 && c < 7); }
     var cut = null, box = null, mid = g + n / 2;
     if (hasLogo) { var ls = n * opt.lsz / 100, pd = opt.lpad ? Math.max(0.6, ls * 0.09) : 0.35; box = { x: ox + mid - ls / 2, y: oy + mid - ls / 2, s: ls, pd: opt.lpad ? pd : 0 }; cut = { x0: mid - ls / 2 - pd, x1: mid + ls / 2 + pd }; }
-    function on(r, c) { if (r < 0 || c < 0 || r >= n || c >= n || !M.m[r][c] || eye(r, c)) return false; if (cut) { var x = c + g + 0.5, y = r + g + 0.5; if (x > cut.x0 && x < cut.x1 && y > cut.x0 && y < cut.x1) return false; } return true; }
+    function on(r, c) { if (r < 0 || c < 0 || r >= n || c >= n) return !!(deco && deco[r + ',' + c]); if (!M.m[r][c] || eye(r, c)) return false; if (cut) { var x = c + g + 0.5, y = r + g + 0.5; if (x > cut.x0 && x < cut.x1 && y > cut.x0 && y < cut.x1) return false; } return true; }
     var d = [], r, c, x, y, len, tp, bt, lf, rt;
     if (opt.dot === 'vb') {
-      for (c = 0; c < n; c++) for (r = 0; r < n; r++) { if (!on(r, c)) continue; len = 1; while (on(r + len, c)) len++; d.push(rq(c + g + ox + 0.1, r + g + oy + 0.06, 0.8, len - 0.12, 0.4)); r += len - 1; }
+      for (c = lo; c < hi; c++) for (r = lo; r < hi; r++) { if (!on(r, c)) continue; len = 1; while (on(r + len, c)) len++; d.push(rq(c + g + ox + 0.1, r + g + oy + 0.06, 0.8, len - 0.12, 0.4)); r += len - 1; }
     } else if (opt.dot === 'hb') {
-      for (r = 0; r < n; r++) for (c = 0; c < n; c++) { if (!on(r, c)) continue; len = 1; while (on(r, c + len)) len++; d.push(rq(c + g + ox + 0.06, r + g + oy + 0.1, len - 0.12, 0.8, 0.4)); c += len - 1; }
-    } else for (r = 0; r < n; r++) for (c = 0; c < n; c++) {
+      for (r = lo; r < hi; r++) for (c = lo; c < hi; c++) { if (!on(r, c)) continue; len = 1; while (on(r, c + len)) len++; d.push(rq(c + g + ox + 0.06, r + g + oy + 0.1, len - 0.12, 0.8, 0.4)); c += len - 1; }
+    } else for (r = lo; r < hi; r++) for (c = lo; c < hi; c++) {
       if (!on(r, c)) continue; x = c + g + ox; y = r + g + oy;
       if (opt.dot === 'dt') d.push(circ(x + 0.5, y + 0.5, 0.45));
       else if (opt.dot === 'sr') d.push(rq(x + 0.07, y + 0.07, 0.86, 0.86, 0.26));
@@ -1102,10 +1151,11 @@ return qrcode;
       } else { eo.push('M' + k(ex) + ' ' + k(ey) + 'h7v7h-7z', 'M' + k(ex + 1) + ' ' + k(ey + 1) + 'h5v5h-5z'); ei.push('M' + k(ex + 2) + ' ' + k(ey + 2) + 'h3v3h-3z'); }
     });
     var gr = null;
-    if (opt.gm === 'lin') { var a = (+opt.ga || 0) * Math.PI / 180, cs = Math.cos(a), sn = Math.sin(a), L = n / 2 * (Math.abs(cs) + Math.abs(sn)); gr = { x1: k(ox + mid - cs * L), y1: k(oy + mid - sn * L), x2: k(ox + mid + cs * L), y2: k(oy + mid + sn * L) }; }
-    else if (opt.gm === 'rad') gr = { cx: k(ox + mid), cy: k(oy + mid), r: k(n * 0.72) };
+    var gx = round ? ccx : ox + mid, gy = round ? ccy : oy + mid;
+    if (opt.gm === 'lin') { var a = (+opt.ga || 0) * Math.PI / 180, cs = Math.cos(a), sn = Math.sin(a), L = round ? R : n / 2 * (Math.abs(cs) + Math.abs(sn)); gr = { x1: k(gx - cs * L), y1: k(gy - sn * L), x2: k(gx + cs * L), y2: k(gy + sn * L) }; }
+    else if (opt.gm === 'rad') gr = { cx: k(gx), cy: k(gy), r: k(round ? R * 1.05 : n * 0.72) };
     return { n: n, W: W, H: H, d: d.join(''), eo: eo.join(''), ei: ei.join(''), sharp: opt.dot === 'sq' || !opt.dot, box: box, lines: lines, fs: fs, capY: capY, tcol: tcol,
-      fg: opt.fg, g2: opt.g2, gr: gr, eoc: opt.em ? opt.eo : '', eic: opt.em ? opt.ei : '', bg: opt.bg, tr: opt.tr, fc: opt.fc, fpath: fpath, frule: frule, ppath: ppath, pill: pill,
+      fg: opt.fg, g2: opt.g2, gr: gr, eoc: opt.em ? opt.eo : '', eic: opt.em ? opt.ei : '', bg: opt.bg, tr: opt.tr, fc: opt.fc, fpath: fpath, frule: frule, ppath: ppath, pill: pill, pillC: pillC, ring: ring, ringC: ringC, disc: disc, round: round,
       logo: opt.logo, ec: ec, v: M.v, text: text, bytes: QRLIB.stringToBytes(text).length };
   }
   var LIMG = { src: '', img: null };
@@ -1121,16 +1171,17 @@ return qrcode;
     var x = cv.getContext('2d'); x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, cv.width, cv.height);
     if (under) { x.fillStyle = under; x.fillRect(0, 0, cv.width, cv.height); }
     x.setTransform(scale, 0, 0, scale, 0, 0);
-    if (!G.tr) { x.fillStyle = G.bg; x.fillRect(0, 0, G.W, G.H); }
+    if (!G.tr) { x.fillStyle = G.bg; if (G.disc) x.fill(new Path2D(G.disc)); else x.fillRect(0, 0, G.W, G.H); }
     if (G.fpath) { x.fillStyle = G.fc; x.fill(new Path2D(G.fpath), G.frule); }
     if (G.ppath) { x.fillStyle = G.bg; x.fill(new Path2D(G.ppath)); }
     var ink = G.fg;
     if (G.gr) { ink = G.gr.r ? x.createRadialGradient(G.gr.cx, G.gr.cy, 0, G.gr.cx, G.gr.cy, G.gr.r) : x.createLinearGradient(G.gr.x1, G.gr.y1, G.gr.x2, G.gr.y2); ink.addColorStop(0, G.fg); ink.addColorStop(1, G.g2); }
+    if (G.ring) { x.fillStyle = G.ringC || ink; x.fill(new Path2D(G.ring), 'evenodd'); }
     x.fillStyle = ink; x.fill(new Path2D(G.d));
     x.fillStyle = G.eoc || ink; x.fill(new Path2D(G.eo), 'evenodd');
     x.fillStyle = G.eic || ink; x.fill(new Path2D(G.ei));
     if (G.box && img) { var b = G.box; if (b.pd) { x.fillStyle = G.tr ? '#ffffff' : G.bg; x.fill(new Path2D(rq(b.x - b.pd, b.y - b.pd, b.s + 2 * b.pd, b.s + 2 * b.pd, b.s * 0.2))); } x.imageSmoothingQuality = 'high'; x.drawImage(img, b.x, b.y, b.s, b.s); }
-    if (G.pill) { x.fillStyle = G.fc; x.fill(new Path2D(G.pill)); }
+    if (G.pill) { x.fillStyle = G.pillC || G.fc; x.fill(new Path2D(G.pill)); }
     if (G.lines.length) { x.setTransform(1, 0, 0, 1, 0, 0); x.fillStyle = G.tcol; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.font = '600 ' + (G.fs * scale) + 'px ' + FONT; G.lines.forEach(function (l, i) { x.fillText(l, G.W * scale / 2, (G.capY + i * G.fs * 1.3) * scale); }); }
   }
   function svg(G, scale) {
@@ -1140,12 +1191,13 @@ return qrcode;
       o += '<defs>' + (G.gr.r ? '<radialGradient id="qrg" gradientUnits="userSpaceOnUse" cx="' + G.gr.cx + '" cy="' + G.gr.cy + '" r="' + G.gr.r + '">' : '<linearGradient id="qrg" gradientUnits="userSpaceOnUse" x1="' + G.gr.x1 + '" y1="' + G.gr.y1 + '" x2="' + G.gr.x2 + '" y2="' + G.gr.y2 + '">') +
         '<stop offset="0" stop-color="' + G.fg + '"/><stop offset="1" stop-color="' + G.g2 + '"/>' + (G.gr.r ? '</radialGradient>' : '</linearGradient>') + '</defs>\n';
     }
-    if (!G.tr) o += '<rect width="' + W + '" height="' + H + '" fill="' + G.bg + '"/>\n';
+    if (!G.tr) o += G.disc ? '<path fill="' + G.bg + '" d="' + G.disc + '"/>\n' : '<rect width="' + W + '" height="' + H + '" fill="' + G.bg + '"/>\n';
+    if (G.ring) o += '<path fill="' + (G.ringC || ink) + '" fill-rule="evenodd" d="' + G.ring + '"/>\n';
     if (G.fpath) o += '<path fill="' + G.fc + '" fill-rule="' + G.frule + '" d="' + G.fpath + '"/>\n';
     if (G.ppath) o += '<path fill="' + G.bg + '" d="' + G.ppath + '"/>\n';
     o += '<path fill="' + ink + '"' + (G.sharp ? ' shape-rendering="crispEdges"' : '') + ' d="' + G.d + '"/>\n<path fill="' + (G.eoc || ink) + '" fill-rule="evenodd" d="' + G.eo + '"/>\n<path fill="' + (G.eic || ink) + '" d="' + G.ei + '"/>\n';
     if (G.box && G.logo) { var b = G.box; if (b.pd) o += '<path fill="' + (G.tr ? '#ffffff' : G.bg) + '" d="' + rq(b.x - b.pd, b.y - b.pd, b.s + 2 * b.pd, b.s + 2 * b.pd, b.s * 0.2) + '"/>\n'; o += '<image x="' + k(b.x) + '" y="' + k(b.y) + '" width="' + k(b.s) + '" height="' + k(b.s) + '" preserveAspectRatio="xMidYMid meet" href="' + G.logo + '" xlink:href="' + G.logo + '"/>\n'; }
-    if (G.pill) o += '<path fill="' + G.fc + '" d="' + G.pill + '"/>\n';
+    if (G.pill) o += '<path fill="' + (G.pillC || G.fc) + '" d="' + G.pill + '"/>\n';
     if (G.lines.length) { o += '<text x="' + k(G.W / 2) + '" y="' + k(G.capY) + '" fill="' + G.tcol + '" font-family="Inter, Segoe UI, Roboto, Arial, sans-serif" font-weight="600" font-size="' + k(G.fs) + '" text-anchor="middle">'; G.lines.forEach(function (l, i) { o += '<tspan x="' + k(G.W / 2) + '"' + (i ? ' dy="' + k(G.fs * 1.3) + '"' : '') + '>' + esc(l) + '</tspan>'; }); o += '</text>\n'; }
     return o + '</svg>\n';
   }
@@ -1184,7 +1236,7 @@ return qrcode;
   /* ---------- render ---------- */
   var G = null, rT = 0;
   function opts() { return { fg: S.d.fg, bg: S.d.bg, tr: S.d.tr, dot: S.d.dot, eye: S.d.eye, ec: S.d.ec, mg: +S.d.mg, cap: String(S.d.cap || '').trim(), logo: logoSrc(), lsz: +S.logo.sz, lpad: !!S.logo.pad,
-    gm: S.d.gm, g2: S.d.g2, ga: +S.d.ga, em: !!S.d.em, eo: S.d.eo, ei: S.d.ei, fr: S.d.fr, fc: S.d.fc }; }
+    gm: S.d.gm, g2: S.d.g2, ga: +S.d.ga, em: !!S.d.em, eo: S.d.eo, ei: S.d.ei, fr: S.d.fr, fc: S.d.fc, shp: S.d.shp === 'ci' ? 'ci' : 'sq' }; }
   function render() {
     var text = content(), warn = [], cv = $('cv');
     $('qEc').disabled = !!logoSrc(); $('qEc').value = logoSrc() ? 'H' : S.d.ec;
@@ -1230,7 +1282,7 @@ return qrcode;
   function writeDesign() {
     PAIRS.forEach(function (p) { if (!hexOk(S.d[p[2]])) S.d[p[2]] = DEF[p[2]]; $(p[0]).value = $(p[1]).value = S.d[p[2]]; });
     $('qTr').checked = !!S.d.tr; $('qEm').checked = !!S.d.em;
-    seg('segDot', S.d.dot); seg('segEye', S.d.eye); seg('segGm', S.d.gm || ''); seg('segFr', S.d.fr || 'none');
+    seg('segShp', S.d.shp || 'sq'); seg('segShp2', S.d.shp || 'sq'); seg('segDot', S.d.dot); seg('segEye', S.d.eye); seg('segGm', S.d.gm || ''); seg('segFr', S.d.fr || 'none');
     $('qEc').value = S.d.ec; showMg();
     $('qGa').value = S.d.ga; $('qGaV').textContent = S.d.ga + '°';
     $('qSize').value = S.d.size; $('qCap').value = S.d.cap || '';
@@ -1285,6 +1337,8 @@ return qrcode;
   });
   function segBind(id, key, after) { $(id).addEventListener('click', function (e) { var b = e.target.closest('button[data-v]'); if (!b) return; S.d[key] = b.getAttribute('data-v'); seg(id, S.d[key]); if (after) after(); designUi(); save(); later(); }); }
   segBind('segDot', 'dot'); segBind('segEye', 'eye'); segBind('segGm', 'gm');
+  segBind('segShp', 'shp', shpSync); segBind('segShp2', 'shp', shpSync);
+  function shpSync() { seg('segShp', S.d.shp); seg('segShp2', S.d.shp); presetPaint(); }
   segBind('segFr', 'fr');
   $('qTr').addEventListener('change', function () { S.d.tr = this.checked; save(); render(); });
   $('qEm').addEventListener('change', function () { S.d.em = this.checked; designUi(); save(); render(); });
@@ -1314,14 +1368,18 @@ return qrcode;
   (function () { $('qBk').innerHTML = BANKS.map(function (b) { return '<option value="' + b[1] + '">' + esc(b[0]) + '</option>'; }).join('') + '<option value="other">Ngân hàng khác (tự nhập mã BIN)</option>'; })();
 
   /* presets */
+  var presetPaint = function () {};
   function presetOpts(p) { var o = {}; LOOK.forEach(function (k) { o[k] = DEF[k]; }); Object.keys(p.o).forEach(function (k) { o[k] = p.o[k]; }); return o; }
   (function () {
     var box = $('presets');
     box.innerHTML = PRESETS.map(function (p, i) { return (!i || PRESETS[i - 1].g !== p.g ? '<div class="pl">' + esc(p.g) + '</div>' : '') + '<button type="button" data-i="' + i + '"><canvas width="10" height="10"></canvas>' + esc(p.n) + '</button>'; }).join('');
-    Array.prototype.forEach.call(box.querySelectorAll('button'), function (b, i) {
-      var p = PRESETS[i], o = presetOpts(p); o.ec = 'M'; o.mg = 2; o.cap = p.cap ? 'Tiêu đề' : ''; o.logo = ''; o.lsz = 22; o.lpad = true;
-      try { var g = build('https://qr.studio', o); paint(b.firstChild, g, Math.max(2, Math.floor(152 / g.W)), null); } catch (e) {}
-    });
+    presetPaint = function () {
+      Array.prototype.forEach.call(box.querySelectorAll('button'), function (b, i) {
+        var p = PRESETS[i], o = presetOpts(p); o.ec = 'M'; o.mg = 2; o.cap = p.cap ? 'Tiêu đề' : ''; o.logo = ''; o.lsz = 22; o.lpad = true; o.shp = S.d.shp;
+        try { var g = build('https://qr.studio', o); paint(b.firstChild, g, Math.max(2, Math.floor(152 / g.W)), null); } catch (e) {}
+      });
+    };
+    presetPaint();
     box.addEventListener('click', function (e) {
       var b = e.target.closest('button[data-i]'); if (!b) return; var p = PRESETS[+b.getAttribute('data-i')], o = presetOpts(p);
       LOOK.forEach(function (k) { S.d[k] = o[k]; });
@@ -1482,7 +1540,8 @@ return qrcode;
     if (mode && mode !== 'raw') {
       var g = gray(d, n);
       if (mode === 'min') g = minf(g, id.width, id.height, 1); else if (mode === 'blur') g = blur(g, id.width, id.height, 2);
-      g = stretch(g);
+      /* 'ct': tăng tương phản mạnh quanh mức xám giữa, hợp với ảnh chụp mã dày bị nhoè */
+      if (mode === 'ct') { for (var q = 0; q < n; q++) g[q] = (g[q] - 128) * 1.6 + 128; } else g = stretch(g);
       for (var i = 0, j = 0; i < n; i++, j += 4) { d[j] = d[j + 1] = d[j + 2] = g[i]; d[j + 3] = 255; }
     }
     try { res = jsQR(d, id.width, id.height, { inversionAttempts: inv ? 'attemptBoth' : 'dontInvert' }); } catch (e) { res = null; }
@@ -1492,12 +1551,14 @@ return qrcode;
     var M = Math.max(W, H), F = [0, 0, 1, 1], C = [], i, j;
     function add(r, D, m, inv, tile) { C.push({ r: r, D: Math.max(60, Math.round(D)), m: m, inv: !!inv, tile: !!tile }); }
     add(F, Math.min(M, 1000), 'raw', true); add(F, Math.min(M, 1000), 'st', true);
-    add(F, 600, 'st'); add(F, 420, 'min'); add(F, 300, 'min'); add(F, 640, 'blur'); add(F, 220, 'min');
-    if (M > 1100) { add(F, Math.min(M, 1800), 'raw'); add(F, Math.min(M, 1800), 'st'); }
+    add(F, 600, 'st'); add(F, 420, 'min'); add(F, Math.min(M, 1000), 'ct'); add(F, 300, 'min'); add(F, 640, 'blur'); add(F, 220, 'min');
+    if (M > 1100) { add(F, Math.min(M, 1800), 'raw'); add(F, Math.min(M, 1800), 'st'); add(F, Math.min(M, 1600), 'ct'); }
     if (M < 600) { add(F, M * 2.5, 'st'); add(F, M * 2, 'blur'); add(F, M * 3, 'raw', true); }
     if (M >= 700) {
       for (i = 0; i < 3; i++) for (j = 0; j < 3; j++) add([j * 0.25, i * 0.25, 0.5, 0.5], 900, 'st', false, true);
       add([0.2, 0.2, 0.6, 0.6], 900, 'st', false, true);
+      add([0.25, 0.25, 0.5, 0.5], 800, 'ct', false, true); add([0.2, 0.2, 0.6, 0.6], 1000, 'ct', false, true);
+      for (i = 0; i < 3; i++) for (j = 0; j < 3; j++) if (i !== 1 || j !== 1) add([j * 0.25, i * 0.25, 0.5, 0.5], 800, 'ct', false, true);
       for (i = 0; i < 3; i++) for (j = 0; j < 3; j++) add([j * 0.25, i * 0.25, 0.5, 0.5], 420, 'min', false, true);
       /* ảnh rất lớn: dò thêm từng ô ở gần độ phân giải gốc để bắt mã dày chụp từ xa */
       if (M >= 1800) for (i = 0; i < 3; i++) for (j = 0; j < 3; j++) add([j * 0.25, i * 0.25, 0.5, 0.5], Math.min(M / 2, 1600), 'st', false, true);
@@ -1835,7 +1896,7 @@ return qrcode;
     LIBPAL.forEach(function (p, i) { LIBREC.forEach(function (rec, ri) { LIB.push(libMake(p[0] + ', ' + rec.n, p[1], p[2], rec, i, ri)); }); });
     return LIB;
   }
-  function libThumb(cv, t) { var o = {}; Object.keys(t.o).forEach(function (k) { o[k] = t.o[k]; }); o.ec = 'M'; o.mg = 2; o.cap = t.cap ? 'Tiêu đề' : ''; o.logo = ''; o.lsz = 22; o.lpad = true; try { var g = build('https://qr.studio', o); paint(cv, g, Math.max(2, Math.floor(132 / g.W)), null); } catch (e) {} }
+  function libThumb(cv, t) { var o = {}; Object.keys(t.o).forEach(function (k) { o[k] = t.o[k]; }); o.ec = 'M'; o.mg = 2; o.cap = t.cap ? 'Tiêu đề' : ''; o.logo = ''; o.lsz = 22; o.lpad = true; o.shp = S.d.shp; try { var g = build('https://qr.studio', o); paint(cv, g, Math.max(2, Math.floor(132 / g.W)), null); } catch (e) {} }
   function libBtn(t) { var b = document.createElement('button'); b.type = 'button'; b._t = t; b.innerHTML = '<canvas width="10" height="10"></canvas>' + esc(t.n); return b; }
   function libPaintQueue(btns) { var i = 0; (function step() { var end = Math.min(btns.length, i + 12); for (; i < end; i++) libThumb(btns[i].firstChild, btns[i]._t); if (i < btns.length) setTimeout(step, 0); })(); }
   /* chỉ dựng từng trang 60 mẫu để kho 1.000 mẫu vẫn nhẹ máy */
@@ -1846,11 +1907,13 @@ return qrcode;
     $('libMsg').textContent = libView.length ? 'Đang hiện ' + libN + ' trong ' + libView.length + ' mẫu. Bấm một mẫu để áp dụng.' : 'Không có mẫu nào khớp. Hãy chọn "Tất cả".';
   }
   function libFilter() {
-    var p = $('libPal').value, r = $('libRec').value;
+    var p = $('libPal').value, r = $('libRec').value; libShp = S.d.shp;
     libView = libAll().filter(function (t) { return (p === '' || String(t.pi) === p) && (r === '' || String(t.ri) === r); });
     $('libGrid').innerHTML = ''; libN = 0; libMore(); $('libGrid').scrollTop = 0;
   }
+  var libShp = '';
   function libOpen() {
+    if ($('libPal').options.length && libShp !== S.d.shp) libFilter();
     if (!$('libPal').options.length) {
       $('libPal').innerHTML = '<option value="">Tất cả tông màu (' + LIBPAL.length + ')</option>' + LIBPAL.map(function (p, i) { return '<option value="' + i + '">' + esc(p[0]) + '</option>'; }).join('') + '<option value="ai">Mẫu AI vừa sáng tạo</option>';
       $('libRec').innerHTML = '<option value="">Tất cả kiểu dáng (' + LIBREC.length + ')</option>' + LIBREC.map(function (r, i) { return '<option value="' + i + '">' + esc(r.n.charAt(0).toUpperCase() + r.n.slice(1)) + '</option>'; }).join('');
